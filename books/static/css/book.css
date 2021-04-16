@@ -1,0 +1,253 @@
+.book-presentation {
+	width: 880px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 0 auto;
+	margin-top: 25px;
+}
+
+.book-presentation img {
+	margin-right: 50px;
+}
+
+.book-presentation h1 {
+	font-size: 36px;
+	margin-bottom: 0;
+}
+
+.book-presentation h4{
+	font-size: 18px;
+	font-weight: normal;
+	margin-top: 0;
+}
+
+.book-presentation p {
+	line-height: 24px;
+	font-size: 18px;
+	margin-top: 20px;
+}
+
+.book-rating {
+	display: flex;
+}
+
+.book-rating .ibdb-rating, .user-rating {
+	margin-right: 20px;
+}
+
+.book-rating h5 {
+	margin: 0;
+	text-align: center;
+	font-size: 18px;
+}
+
+.book-rating button {
+	padding: 10px;
+	font-size: 20px;
+	background-color: #F7FFF7;
+	border: none;
+	border-radius: 5px;
+}
+
+.book-rating button:hover {
+	background-color: rgba(0, 0, 0, 6%);
+}
+
+.book-rating button:focus {
+	outline: none;
+	background-color: rgba(0, 0, 0, 15%);
+}
+
+.book-rating button span {
+	margin: 0;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  border-radius: 10px;
+  width: 50%;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.rating {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+}
+
+.rating > input{ display:none;}
+
+.rating > label {
+  position: relative;
+  width: 1.1em;
+  font-size: 4vw;
+  color: #0245A3;
+  cursor: pointer;
+}
+
+.rating > label::before{ 
+  content: "\2605";
+  position: absolute;
+  opacity: 0;
+}
+
+.rating > label:hover:before,
+.rating > label:hover ~ label:before {
+  opacity: 1 !important;
+}
+
+.rating > input:checked ~ label:before{
+  opacity:1;
+}
+
+.rating:hover > input:checked ~ label:before{ opacity: 0.4; }
+
+.review-rating-user i {
+	color: #0245A3;
+}
+
+.review-rating i::before {
+	color: #f5c518;
+	transform: scale(0.9);
+}
+
+.modal-content button {
+	width: 100%;
+	font-family: "Gemunu"
+}
+
+.want-read {
+	cursor: pointer;
+	width: 310px;
+	height: 50px;
+	border-radius: 4px;
+	background-color: #0245A3;
+	color: white;
+	font-family: 'Gemunu';
+	font-weight: bold;
+	font-size: 36px;
+	border: none;
+}
+
+.book-info {
+	max-width: 840px;
+	margin: 60px 0px 0px 78px;
+}
+
+h3 {
+	font-size: 40px;
+	font-weight: bold;
+	color: rgba(0, 0, 0, 85%);
+	border-left: 5px solid #0245A3;
+	padding-left: 5px;
+	display: flex;
+}
+
+h3 button {
+	margin-left: auto;
+	padding: 15px;
+	background-color: #F7FFF7;
+	border: none;
+	border-radius: 5px;
+}
+
+h3 button:hover {
+	background-color: rgba(0, 0, 0, 6%)
+}
+
+h3 button:focus {
+	background-color: rgba(0, 0, 0, 15%);
+	outline: none;
+}
+
+.book-details h4 {
+	padding-bottom: 11px;
+	font-weight: normal;
+	font-size: 18px;
+	border-bottom: 1px solid rgba(0, 0, 0, 30%);
+	margin-bottom: 5px;
+	margin-top: 12px;
+}
+
+.book-details b {
+	margin-right: 12px;
+}
+
+.review {
+	margin-bottom: 23px;
+	padding: 5px 20px 20px 20px;
+	box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.25);
+	border-radius: 8px;
+}
+
+h3 a {
+	margin-left: auto;
+	text-decoration: none;
+	padding: 10px;
+	color: #0245A3;
+	font-size: 24px;
+	font-family: "Gemunu";
+}
+
+h3 a:hover {
+	background-color: rgba(2, 69, 163, 15%);
+	border-radius: 5px;
+}
+
+.review p {
+	line-height: 20px;
+}
+
+.review-top {
+	display: flex;
+}
+
+.review-rating {
+	margin-left: auto;
+	margin-right: 20px;
+	align-self: center;
+	color: rgba(0, 0, 0, 80%);
+}
+
+.max-rating {
+	color: rgba(0, 0, 0, 50%);
+}
+
+.review-likes {
+	display: flex;
+}
+
+.review-likes div {
+	margin-left: auto;
+	margin-right: 20px;
+}

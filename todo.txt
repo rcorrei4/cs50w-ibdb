@@ -1,0 +1,37 @@
+1. Homepage
+	- Navbar [done]
+	- Top books
+	- New books
+	- Top authors
+
+2. Sign Page
+	- Login/Register [done]
+	- Remember me checkbox
+
+3. Book page
+	- Details
+		- Characters [done]
+		- Original Title [done]
+		- ISBN [done]
+		- Genres [done]
+		- Questions [done]
+		- Ilustrations [done]
+		- Keywords [done]
+		- Clicking on Keywords, Genres or Characters will make a search on ibdb
+
+	- Rating [done]
+		- Clear rate [done]
+		- Rate details
+
+	- Reviews [done]
+	- Edit book page
+
+4. Search book
+	- googlebooks api [done]
+	- add book to ibdb
+
+5. Add book page
+	- Limit 5/day
+
+6. Maintainers account [Wikipedia idea]
+	A special account to allow users editing a book page

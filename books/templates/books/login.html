@@ -1,0 +1,47 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <div class="container">
+        <div class="login">
+            <div class="login-box">
+                <div class="logo">
+                    <a href="{% url 'index' %}">IBDb</a>
+                </div>
+
+                <form class="login-form" method="post" action="{% url 'login' %}">
+                    {% csrf_token %}
+                    <div class="login-info">
+                        <label for="username">User</label>
+                        <input type="text" name="username" id="username">
+
+                        <label for="password">Password</label>
+                        <input type="password" name="password" id="password">
+                    </div>
+
+                    <input type="checkbox" name="remeber">
+                    <label for="remember">Remeber me</label>
+                    <br>
+                    <input class="btn" type="submit" name="login-btn" value="Log In">
+                    <button class="btn"><a href="{% url 'register' %}">Create Account</a></button>
+                </form>
+                {% if message %}
+                    <br><i class="bi bi-x-circle"></i> {{ message }}
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="presentation">
+            <p class="text">Welcome to <b>I</b>nternet <b>B</b>ook <b>D</b>ata<b>b</b>ase</p>
+
+            <img src="{% static 'images/book.png' %}" width="300px">
+        </div>
+    </div>
+</body>

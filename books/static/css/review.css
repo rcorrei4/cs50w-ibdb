@@ -1,0 +1,120 @@
+.review-form {
+  padding: 30px;
+  width: 50%;
+  margin: auto;
+  margin-top: 30px;
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: 0px 1px 20px -2px rgba(0, 0, 0, 0.25);
+}
+
+.book {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.book-image {
+  margin-right: 16px;
+}
+
+.book-info h3{
+  margin: 0;
+}
+
+.book-info h4 {
+  margin: 0;
+  font-weight: normal;
+}
+
+.rating {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+}
+
+.form-input-text {
+  display: grid;
+}
+
+.form-input-text input, textarea {
+  font-family: "Gemunu";
+  font-size: 16px;
+  margin: 12px auto 0px;
+  width: 70%;
+  padding: 15px;
+  border-radius: 5px;
+  border: none;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
+}
+
+.form-input-text input[name="review-title"] {
+  font-weight: bold;
+}
+
+.form-input-text textarea {
+  height: 100px;
+}
+
+.form-input-text textarea:focus {
+  outline: none;
+}
+
+.form-input-text input:focus {
+  outline: none;
+}
+
+button {
+  margin: 0 auto;
+  margin-top: 20px;
+  width: 310px;
+  height: 49px;
+  background-color: #0245A3;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-family: "Gemunu";
+  font-weight: bold;
+  font-size: 30px;
+}
+
+.rating > input{ display:none;}
+
+.rating > label {
+  position: relative;
+  width: 1.1em;
+  font-size: 4vw;
+  color: #0245A3;
+  cursor: pointer;
+}
+
+.rating > label::before{ 
+  content: "\2605";
+  position: absolute;
+  opacity: 0;
+}
+
+.rating > label:hover:before,
+.rating > label:hover ~ label:before {
+  opacity: 1 !important;
+}
+
+.rating > input:checked ~ label:before{
+  opacity:1;
+}
+
+.rating:hover > input:checked ~ label:before{ opacity: 0.4; }
+
+.review-rating-user i {
+	color: #0245A3;
+}
+
+.review-rating i::before {
+	color: #f5c518;
+	transform: scale(0.9);
+}
+
+#error-message {
+  margin: 0 auto;
+  margin-top: 10px;
+}

@@ -1,0 +1,58 @@
+{% extends 'books/layout.html' %}
+{% load static %}
+
+{% block css %}<link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">{% endblock %}
+
+{% block body %}
+<div class="content">
+	<div class="book-info">
+		<h1 id="book-title">{{ Books.first.title }}</h1> <br>
+		<p id="book-author">by {{ Books.first.author }}</p>
+		<p id="book-synopsis">{{ Books.first.synopsis }}</p>
+	</div>
+
+	<div class="book-img">
+		<h4>Fiction</h4>
+	  		<div class="swiper-container swiper1">
+			  <!-- Additional required wrapper -->
+			  <div class="swiper-wrapper">
+			    <!-- Slides -->
+			    {% for Book in Books %}
+			    	<div class="swiper-slide" data-id="{{ Book.id }}">
+			    		<a href="{% url 'book' Book.id %}"><img src="{{ Book.book_cover.url }}" width="300px"></a>
+			    	</div>
+			    {% endfor %}
+			  </div>
+
+			  <!-- If we need navigation buttons -->
+			  <div class="swiper-button-prev"></div>
+			  <div class="swiper-button-next"></div>
+
+			</div>
+		<button class="want-read">+ Want to read</button>
+	</div>
+
+	<div class="book-slider">
+		<div class="swiper-container swiper2">
+		    <div class="swiper-wrapper">
+		      	{% for Book in Books %}
+		      		<div class="swiper-slide">
+				      	<div class="book-slider-box">
+							<div class="book-slider-img">
+								<img src="{{ Book.book_cover.url }}" width="80px">
+							</div>
+							<div class="book-slider-info">
+								<h4>{{ Book.title }}</h4>
+								<p>{{ Book.synopsis|safe|truncatechars:300 }}</p>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+		    </div>
+		</div>
+		<a href="#">Browse books ></a>
+	</div>
+</div>
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script src="{% static 'js/index.js' %}"></script>
+{% endblock %}

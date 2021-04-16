@@ -1,0 +1,16 @@
+{% extends 'books/layout.html' %}
+{% load static %}
+
+{% block css %}<link rel="stylesheet" type="text/css" href="{% static 'css/search.css' %}">{% endblock %}
+
+{% block body %}
+<div class="search-result">
+	{% for key, book in books.items %}
+		<div class="book-card">
+			<img src="{{ book.image }}" width="128px" height="183px">
+			<h4>{{ book.title|safe|truncatechars:30 }}</h4>
+			<h5>{{ book.author.0 }}</h5>
+		</div>
+	{% endfor %}
+</div>
+{% endblock %}

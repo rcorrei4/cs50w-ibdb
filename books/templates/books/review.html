@@ -1,0 +1,36 @@
+{% extends 'books/layout.html' %}
+{% load static %}
+
+{% block css %}<link rel="stylesheet" href="{% static 'css/review.css' %}">{% endblock %}
+{% block body %}
+
+<form class="review-form" id="review-form" action="{% url 'review_book' book.id %}" method="post">
+	{% csrf_token %}
+	<div class="book">
+		<div class="book-image">
+			<img src="{{ book.book_cover.url }}" width="100" height="154">
+		</div>
+		<div class="book-info">
+			<h3>{{ book.title }}</h3>
+			<h4>by {{ book.author }} - Published on {{ book.published }}</h4>
+			<div class="rating">
+				<input type="radio" name="rating" value="5" id="5"><label for="5">☆</label>
+				<input type="radio" name="rating" value="4" id="4"><label for="4">☆</label>
+				<input type="radio" name="rating" value="3" id="3"><label for="3">☆</label>
+				<input type="radio" name="rating" value="2" id="2"><label for="2">☆</label>
+				<input type="radio" name="rating" value="1" id="1"><label for="1">☆</label>
+			</div>
+		</div>
+	</div>
+	<div class="form-input-text">
+		<input type="text" name="title" placeholder="Review title">
+		<textarea name="text" placeholder="Review text" form="review-form"></textarea>
+		{% if message %}
+			<h5 id="error-message">{{ message }}</h5>
+		{% endif %}
+		<button type="submit">POST</button>
+	</div>
+</form>
+
+<script src="{% static 'js/review.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,97 @@
+{% extends 'books/layout.html' %}
+{% load static %}
+
+{% block css %}<link rel="stylesheet" href="{% static 'css/book.css' %}">{% endblock %}
+
+{% block body %}
+<div class="book-presentation">
+	<div class="book-img">
+		<img src="{{ Book.book_cover.url }}" width="350px">
+	</div>
+
+	<div class="book-show-info">
+		<h1 id="book-title" data-id="{{ Book.id }}">{{ Book.title }}</h1>
+		<h4>by {{ Book.author }} - Published on {{ Book.published }}</h4>
+		<div class="book-rating">
+			<div class="ibdb-rating">
+				<h5>IBDb RATING</h5>
+				<button>
+					<span class="review-rating"><i class="bi bi-star-fill"></i> 4<span class="max-rating">/5</span></span>
+				</button>
+			</div>
+			<div class="user-rating">
+				<h5>YOUR RATING</h5>
+				<button id="myBtn">
+					{% if not rating_score %}
+						<span class="review-rating"><i class="bi bi-star"></i> Rate</span></span>
+					{% else %}
+						<span class="review-rating-user"><i class="bi bi-star-fill"></i> {{ rating_score }}<span class="max-rating">/5</span></span>
+					{% endif %}
+				</button>
+				<div id="myModal" class="modal">
+				  <div class="modal-content">
+				    <span class="close">&times;</span>
+				    <form class="rating">
+				    	{% csrf_token %}
+						<input type="radio" name="rating" value="5" id="5"><label for="5">☆</label>
+						<input type="radio" name="rating" value="4" id="4"><label for="4">☆</label>
+						<input type="radio" name="rating" value="3" id="3"><label for="3">☆</label>
+						<input type="radio" name="rating" value="2" id="2"><label for="2">☆</label>
+						<input type="radio" name="rating" value="1" id="1"><label for="1">☆</label>
+					</form>
+					<button id="rate-btn" type="button">Rate</button>
+					<button id="rate-remove-btn" type="button">Remove</button>
+				  </div>
+				</div>
+			</div>
+		</div>
+		<p>{{ Book.synopsis }}</p>
+		<button class="want-read">+ Want to read</button>
+	</div>
+</div>
+
+<div class="book-info">
+	<div class="book-details">
+		<h3>Details<button class="bi bi-pencil"></button></h3>
+		<h4><b>ISBN-10</b>{{ Book.isbn.isbn10 }}</h4>
+		<h4><b>ISBN-13</b>{{ Book.isbn.isbn13 }}</h4>
+		<h4><b>Original title</b>{{ Book.original_title }}</h4>
+		<h4><b>Characters</b>{% for character in Book.characters.characters %}<a href="{% url 'search_book' %}?q={{ character }}">{{ character }}</a>{% endfor %}</h4>
+		<h4><b>Genres</b>{% for genres in Book.genres.genres %}<a href="{% url 'search_book' %}?q={{ genres }}">{{ genres }}</a>{% endfor %}</h4>
+		<h4><b>Keywords</b>{% for keywords in Book.keywords.keywords %}<a href="{% url 'search_book' %}?q={{ keywords }}">{{ keywords }}</a>{% endfor %}</h4>
+	</div>
+
+	<div class="book-illustrations">
+		<h3>Illustrations<button class="bi bi-pencil"></button></h3>
+		<div class="images">
+			{% for illustration in Illustrations %}
+				<img src="{{ illustration.image.url }}" height="150px">
+			{% endfor %}
+		</div>
+	</div>
+
+	<div class="book-reviews">
+		<h3>Reviews<a href="{% url 'review_book' Book.id %}"}>+ Review</a></h3>
+		{% for review in Reviews %}
+			<div class="review">
+				<div class="review-top">
+					<h4>{{ review.user.username }} - {{ review.date }}</h4>
+					<span class="review-rating"><i class="bi bi-star-fill"></i> {{ review.score }}<span class="max-rating">/5</span></span>
+					{% if request.user == review.user %}
+						<a class="bi bi-pencil" href="{% url 'edit_review' Book.id %}"></a>
+					{% endif %}
+				</div>
+				<h2>{{ review.title }}</h2>
+				<p>{{ review.text }}</p>
+				<div class="review-likes">
+					<div>
+					124 likes </i><button class="bi bi-hand-thumbs-up"></button></i><button class="bi bi-flag"></button>
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+</div>
+
+<script src="{% static 'js/rate.js' %}"></script>
+{% endblock %}

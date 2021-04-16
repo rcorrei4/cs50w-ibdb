@@ -1,0 +1,93 @@
+.content {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: 5px 29px 23px 30px;
+}
+
+.book-info {
+	width: 450px;
+	text-align: center;
+	font-family: 'Gemunu';
+	font-size: 24px;
+	margin-right: 32px;
+}
+
+.book-info h1 {
+	font-size: 36px;
+	margin-bottom: 0;
+}
+
+.book-img {
+	margin-right: 22px;
+	width: 330px;
+}
+
+.book-img h4{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 4px;
+	width: 111px;
+	height: 31px;
+	margin: 0px 0px 4px 100px;
+	background-color: rgba(2, 69, 163, 37%);
+	color: white;
+	font-weight: bold;
+	font-size: 24px;
+}
+
+.want-read {
+	cursor: pointer;
+	width: 310px;
+	height: 50px;
+	border-radius: 4px;
+	background-color: #0245A3;
+	color: white;
+	font-family: 'Gemunu';
+	font-weight: bold;
+	font-size: 36px;
+	border: none;
+}
+
+.book-slider {
+	height: 450px;
+}
+
+.swiper-container {
+  max-height: 100%;
+}
+
+.book-slider-box {
+	display: flex;
+	border: 3px solid rgba(0, 0, 0, 20%);
+	border-radius: 6px;
+	width: 330px;
+	height: 130px;
+	margin-bottom: 6px;
+}
+
+.book-slider-img {
+	width: 100px;
+	margin: 5px 0px 3px 4px;
+}
+
+.book-slider-info {
+	font-size: 12px;
+}
+
+.book-slider-info h4 {
+	margin: 0px;
+	margin-top: 5px;
+	font-size: 14px;
+}
+
+.book-slider-info p {
+	width: 210px;
+	color: rgba(0, 0, 0, 75%);
+}
+
+.book-slider a {
+	color: #06224A;
+	font-size: 24px;
+}

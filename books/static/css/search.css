@@ -1,0 +1,8 @@
+.search-result {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.book-card {
+	width: 200px;
+}
