@@ -10,7 +10,7 @@
 	</div>
 
 	<div class="book-show-info">
-		<h1 id="book-title" data-id="{{ Book.id }}">{{ Book.title }}</h1>
+		<h1 id="book-title" data-id="{{ Book.id }}">{{ Book.title }}<a href="{% url 'edit_book' Book.id %}" id="edit-btn" class="bi bi-pencil"></a></h1>
 		<h4>by {{ Book.author }} - Published on {{ Book.published }}</h4>
 		<div class="book-rating">
 			<div class="ibdb-rating">
@@ -52,7 +52,7 @@
 
 <div class="book-info">
 	<div class="book-details">
-		<h3>Details<button class="bi bi-pencil"></button></h3>
+		<h3>Details</h3>
 		<h4><b>ISBN-10</b>{{ Book.isbn.isbn10 }}</h4>
 		<h4><b>ISBN-13</b>{{ Book.isbn.isbn13 }}</h4>
 		<h4><b>Original title</b>{{ Book.original_title }}</h4>
@@ -62,7 +62,7 @@
 	</div>
 
 	<div class="book-illustrations">
-		<h3>Illustrations<button class="bi bi-pencil"></button></h3>
+		<h3>Illustrations</h3>
 		<div class="images">
 			{% for illustration in Illustrations %}
 				<img src="{{ illustration.image.url }}" height="150px">
@@ -90,6 +90,11 @@
 				</div>
 			</div>
 		{% endfor %}
+	</div>
+
+	<div class="contribute">
+		<h3>Contribute to this page</h3>
+		<a href="{% url 'edit_book' Book.id %}"><i class="bi bi-pencil"></i> Edit page</a>
 	</div>
 </div>
 

@@ -1,0 +1,12 @@
+{% extends 'books/layout.html' %}
+{% load static %}
+
+{% block css %}{% endblock %}
+
+{% block body %}
+<form>
+	{% csrf_token %}
+	{{ form }}
+	<button type="submit">Add book</button>
+</form>
+{% endblock %}

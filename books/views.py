@@ -11,7 +11,7 @@ from django.urls import reverse
 from django.core.exceptions import ObjectDoesNotExist
 
 from .models import Book, Rating, Review, Illustration
-from .forms import ReviewForm
+from .forms import ReviewForm, BookForm
 
 def index(request):
 	Books = Book.objects.all().order_by('id')
@@ -67,6 +67,11 @@ def register(request):
 	else:
 		return render(request, "books/register.html")
 
+def contribute(request):
+	return render(request, "books/contribute.html", {
+		"form": BookForm
+		})
+
 def book(request, book_id):
 	# Get book, illustrations and reviews objects
 	book = get_object_or_404(Book, id=book_id)
@@ -85,6 +90,12 @@ def book(request, book_id):
 		return render(request, "books/book.html", context)
 	else:
 		return render(request, "books/book.html", context)
+
+def edit_book(request, book_id):
+	book = get_object_or_404(Book, id=book_id)
+	return render(request, "books/contribute.html", {
+		"form": BookForm(instance=book)
+		})
 
 def get_book(request, book_id):
 	book = get_object_or_404(Book, id=book_id)

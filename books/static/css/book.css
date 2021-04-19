@@ -12,6 +12,7 @@
 }
 
 .book-presentation h1 {
+	display: flex;
 	font-size: 36px;
 	margin-bottom: 0;
 }
@@ -173,7 +174,7 @@ h3 {
 	display: flex;
 }
 
-h3 button {
+#edit-btn {
 	margin-left: auto;
 	padding: 15px;
 	background-color: #F7FFF7;
@@ -181,11 +182,10 @@ h3 button {
 	border-radius: 5px;
 }
 
-h3 button:hover {
+#edit-btn:hover {
 	background-color: rgba(0, 0, 0, 6%)
 }
-
-h3 button:focus {
+#edit-btn:focus {
 	background-color: rgba(0, 0, 0, 15%);
 	outline: none;
 }
@@ -250,4 +250,16 @@ h3 a:hover {
 .review-likes div {
 	margin-left: auto;
 	margin-right: 20px;
+}
+
+.contribute a {
+	border: none;
+	background-color: #0245A3;
+	border-radius: 5px;
+	padding: 15px;
+	text-decoration: none;
+	color: white;
+	font-family: "Gemunu";
+	font-weight: bold;
+	font-size: 18px;
 }
