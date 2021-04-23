@@ -68,8 +68,10 @@
 }
 
 .book-slider-img {
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	width: 100px;
-	margin: 5px 0px 3px 4px;
 }
 
 .book-slider-info {

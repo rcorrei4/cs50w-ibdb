@@ -15,9 +15,13 @@ class ReviewForm(forms.Form):
 class BookForm(forms.ModelForm):
 	class Meta:
 		model = Book
-		fields = ['title', 'author', 'book_cover', 'isbn', 'synopsis', 'genres', 
-				  'published', 'original_title', 'characters','keywords']
+		exclude = []
 
 		widgets = {
             'synopsis': forms.Textarea(),
         }
+
+class EditBookForm(forms.ModelForm):
+	class Meta:
+		model = Book
+		exclude = ['book_cover']

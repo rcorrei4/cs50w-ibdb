@@ -6,9 +6,9 @@ from datetime import date
 class Book(models.Model):
 	title = models.CharField(max_length=128)
 	author = models.CharField(max_length=64)
-	book_cover = models.ImageField(upload_to="media")
+	book_cover = models.ImageField(upload_to="books")
 	isbn = models.JSONField(max_length=64, default=dict)
-	synopsis = models.CharField(max_length=600)
+	synopsis = models.TextField(max_length=600)
 	genres = models.JSONField(max_length=64, default=dict)
 	published = models.DateField(default=date(2000, 2, 2))
 	original_title = models.CharField(max_length=128)

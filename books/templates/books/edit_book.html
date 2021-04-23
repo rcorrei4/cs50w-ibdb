@@ -1,0 +1,12 @@
+{% extends 'books/layout.html' %}
+{% load static %}
+
+{% block css %}<link rel="stylesheet" href="{% static 'css/contribute.css' %}">{% endblock %}
+
+{% block body %}
+<form class="contribute-form" action="{% url 'edit_book' book_id %}" method="post">
+	{% csrf_token %}
+	{{ form }}
+	<button type="submit">Add book</button>
+</form>
+{% endblock %}

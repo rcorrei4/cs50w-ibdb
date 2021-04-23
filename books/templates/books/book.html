@@ -10,7 +10,7 @@
 	</div>
 
 	<div class="book-show-info">
-		<h1 id="book-title" data-id="{{ Book.id }}">{{ Book.title }}<a href="{% url 'edit_book' Book.id %}" class="bi bi-pencil"></a></h1>
+		<h1 class="book-title" data-id="{{ Book.id }}">{{ Book.title }}<a href="{% url 'edit_book' Book.id %}" class="bi bi-pencil"></a></h1>
 		<h4>by {{ Book.author }} - Published on {{ Book.published }}</h4>
 		<div class="book-rating">
 			<div class="ibdb-rating">
@@ -45,7 +45,7 @@
 				</div>
 			</div>
 		</div>
-		<p>{{ Book.synopsis }}</p>
+		<p>{{ Book.synopsis|linebreaks }}</p>
 		<button class="want-read">+ Want to read</button>
 	</div>
 </div>

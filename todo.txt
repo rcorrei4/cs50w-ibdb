@@ -27,8 +27,8 @@
 	- Edit book page [done]
 
 4. Search book
-	- googlebooks api [done]
-	- add book to ibdb
+	- filter
+	- book, author, rating and want to read
 
 5. Add book page [done]
 	- Limit 5/day

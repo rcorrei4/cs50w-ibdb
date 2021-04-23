@@ -11,7 +11,7 @@ from django.urls import reverse
 from django.core.exceptions import ObjectDoesNotExist
 
 from .models import Book, Rating, Review, Illustration
-from .forms import ReviewForm, BookForm
+from .forms import ReviewForm, BookForm, EditBookForm
 
 def index(request):
 	Books = Book.objects.all().order_by('id')
@@ -67,29 +67,6 @@ def register(request):
 	else:
 		return render(request, "books/register.html")
 
-@login_required
-def contribute(request):
-	if request.method == "POST":
-		form = BookForm(request.POST, request.FILES)
-		if form.is_valid():
-			book = form.save()
-
-			return HttpResponseRedirect(reverse("book", args=[book.id]))
-		else:
-			return render(request, "books/contribute.html", {
-				"form": form
-				})
-	else:
-		initial_data = {
-			"isbn": {"isb10": "Insert ISBN10 here", "isbn13": "Insert ISBN13 here"},
-			"genres": {"genres": ["insert", "genres", "here"]},
-			"characters": {"characters": ["Insert", "characters", "here"]},
-			"keywords": {"keywords": ["Insert", "keywords", "here"]},
-		}
-		return render(request, "books/contribute.html", {
-			"form": BookForm(initial=initial_data)
-			})
-
 def book(request, book_id):
 	# Get book, illustrations and reviews objects
 	book = get_object_or_404(Book, id=book_id)
@@ -109,11 +86,47 @@ def book(request, book_id):
 	else:
 		return render(request, "books/book.html", context)
 
+@login_required
+def contribute(request):
+	if request.method == "POST":
+		form = BookForm(request.POST, request.FILES)
+		if form.is_valid():
+			book = form.save()
+
+			return HttpResponseRedirect(reverse("book", args=[book.id]))
+		else:
+			return render(request, "books/contribute.html", {
+				"form": form
+				})
+	else:
+		initial_data = {
+			"isbn": {"isbn10": "Insert ISBN10 here", "isbn13": "Insert ISBN13 here"},
+			"genres": {"genres": ["insert", "genres", "here"]},
+			"characters": {"characters": ["Insert", "characters", "here"]},
+			"keywords": {"keywords": ["Insert", "keywords", "here"]},
+		}
+		return render(request, "books/contribute.html", {
+			"form": BookForm(initial=initial_data)
+			})
+
 def edit_book(request, book_id):
 	book = get_object_or_404(Book, id=book_id)
-	return render(request, "books/contribute.html", {
-		"form": BookForm(instance=book)
-		})
+	if request.method == "POST":
+		form = EditBookForm(request.POST, instance=book)
+		if form.is_valid():
+			edit_book = form.save()
+
+
+			return HttpResponseRedirect(reverse("book", args=[book.id]))
+		else:
+			return render(request, "books/edit_book.html", {
+				"form": form
+				})
+	else:
+		return render(request, "books/edit_book.html", {
+			"form": EditBookForm(instance=book),
+			"book_id": book.id
+			})
 
 def get_book(request, book_id):
 	book = get_object_or_404(Book, id=book_id)
