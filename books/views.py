@@ -67,6 +67,7 @@ def register(request):
 	else:
 		return render(request, "books/register.html")
 
+@login_required
 def contribute(request):
 	if request.method == "POST":
 		form = BookForm(request.POST, request.FILES)
@@ -75,8 +76,9 @@ def contribute(request):
 
 			return HttpResponseRedirect(reverse("book", args=[book.id]))
 		else:
-			print(form.cleaned_data)
-			print(form)
+			return render(request, "books/contribute.html", {
+				"form": form
+				})
 	else:
 		initial_data = {
 			"isbn": {"isb10": "Insert ISBN10 here", "isbn13": "Insert ISBN13 here"},
@@ -119,25 +121,7 @@ def get_book(request, book_id):
 							 "synopsis": f"{book.synopsis}", "cover": f"{book.book_cover.url}"}})
 
 def search_book(request):
-	# Get user input and request a search on google books api
-	search = request.GET.get('q')
-	response = requests.get(f"https://www.googleapis.com/books/v1/volumes?q={search}&key=AIzaSyB9dSBK_IUe9xWylsNyYuVRoNROM3T6sRQ")
-	result = response.json()
-	books = dict()
-	for count, item in enumerate(result['items']):
-		books[f'book{count}'] = dict()
-		title = item['volumeInfo']['title']
-		author = item['volumeInfo'].get('authors')
-		book_id = item['id']
-		if not item['volumeInfo'].get('imageLinks') == None:
-			image = item['volumeInfo'].get('imageLinks').get('thumbnail')
-
-			books[f'book{count}'] = {"id": book_id, "title": title, "image": image, "author": author}
-	# AIzaSyB9dSBK_IUe9xWylsNyYuVRoNROM3T6sRQ
-
-	return render(request, "books/search.html", {
-		"books": books
-		})
+	pass
 
 def rate_book(request):
 	if request.user.is_authenticated:
