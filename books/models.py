@@ -6,24 +6,24 @@ from datetime import date
 class Book(models.Model):
 	title = models.CharField(max_length=128)
 	author = models.CharField(max_length=64)
-	book_cover = models.ImageField()
-	isbn = models.JSONField(max_length=64, blank=True)
+	book_cover = models.ImageField(upload_to="media")
+	isbn = models.JSONField(max_length=64, default=dict)
 	synopsis = models.CharField(max_length=600)
-	genres = models.JSONField(max_length=64, blank=True)
+	genres = models.JSONField(max_length=64, default=dict)
 	published = models.DateField(default=date(2000, 2, 2))
-	original_title = models.CharField(max_length=128, blank=True)
-	characters = models.JSONField(max_length=528, blank=True)
-	keywords = models.JSONField(max_length=528, blank=True)
+	original_title = models.CharField(max_length=128)
+	characters = models.JSONField(max_length=528, default=dict)
+	keywords = models.JSONField(max_length=528, default=dict)
 
 	def __str__(self):
-		return self.title
+		return str(self.title)
 
 class Illustration(models.Model):
 	image = models.ImageField()
 	book = models.ForeignKey(Book, on_delete=models.CASCADE)
 
 	def __str__(self):
-		return self.book
+		return str(self.book)
 
 class Rating(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -36,7 +36,7 @@ class Rating(models.Model):
 		)
 
 	def __str__(self):
-		return f"{self.user} - {self.book}: Rating {self.score}"
+		return str(f"{self.user} - {self.book}: Rating {self.score}")
 
 class Review(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)

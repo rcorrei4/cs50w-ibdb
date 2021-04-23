@@ -68,9 +68,25 @@ def register(request):
 		return render(request, "books/register.html")
 
 def contribute(request):
-	return render(request, "books/contribute.html", {
-		"form": BookForm
-		})
+	if request.method == "POST":
+		form = BookForm(request.POST, request.FILES)
+		if form.is_valid():
+			book = form.save()
+
+			return HttpResponseRedirect(reverse("book", args=[book.id]))
+		else:
+			print(form.cleaned_data)
+			print(form)
+	else:
+		initial_data = {
+			"isbn": {"isb10": "Insert ISBN10 here", "isbn13": "Insert ISBN13 here"},
+			"genres": {"genres": ["insert", "genres", "here"]},
+			"characters": {"characters": ["Insert", "characters", "here"]},
+			"keywords": {"keywords": ["Insert", "keywords", "here"]},
+		}
+		return render(request, "books/contribute.html", {
+			"form": BookForm(initial=initial_data)
+			})
 
 def book(request, book_id):
 	# Get book, illustrations and reviews objects

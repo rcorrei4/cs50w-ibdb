@@ -17,3 +17,7 @@ class BookForm(forms.ModelForm):
 		model = Book
 		fields = ['title', 'author', 'book_cover', 'isbn', 'synopsis', 'genres', 
 				  'published', 'original_title', 'characters','keywords']
+
+		widgets = {
+            'synopsis': forms.Textarea(),
+        }

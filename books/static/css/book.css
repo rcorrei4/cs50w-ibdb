@@ -174,18 +174,19 @@ h3 {
 	display: flex;
 }
 
-#edit-btn {
+.book-title a {
 	margin-left: auto;
-	padding: 15px;
+	color: black;
+	font-size: 10px;
 	background-color: #F7FFF7;
 	border: none;
 	border-radius: 5px;
 }
 
-#edit-btn:hover {
+.book-title a:hover {
 	background-color: rgba(0, 0, 0, 6%)
 }
-#edit-btn:focus {
+.book-title a:focus {
 	background-color: rgba(0, 0, 0, 15%);
 	outline: none;
 }
