@@ -62,7 +62,7 @@
 	</div>
 
 	<div class="book-illustrations">
-		<h3>Illustrations</h3>
+		<h3>Illustrations <a class="bi bi-pencil" href="{% url 'illustration' Book.id %}"}></a></h3>
 		<div class="images">
 			{% for illustration in Illustrations %}
 				<img src="{{ illustration.image.url }}" height="150px">

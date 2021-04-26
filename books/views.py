@@ -116,7 +116,6 @@ def edit_book(request, book_id):
 		if form.is_valid():
 			edit_book = form.save()
 
-
 			return HttpResponseRedirect(reverse("book", args=[book.id]))
 		else:
 			return render(request, "books/edit_book.html", {
@@ -170,6 +169,9 @@ def rate_book(request):
 				return JsonResponse({'error':'rating dont exist!'})
 	else:
 		return JsonResponse({'error':'login_required'})
+
+def illustration(request):
+	pass
 
 @login_required
 def review_book(request, book_id):
