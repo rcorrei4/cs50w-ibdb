@@ -11,7 +11,7 @@ from django.urls import reverse
 from django.core.exceptions import ObjectDoesNotExist
 
 from .models import Book, Rating, Review, Illustration
-from .forms import ReviewForm, BookForm, EditBookForm
+from .forms import ReviewForm, BookForm, EditBookForm, ImageForm
 
 def index(request):
 	Books = Book.objects.all().order_by('id')
@@ -172,10 +172,25 @@ def rate_book(request):
 
 def illustration(request, book_id):
 	book = get_object_or_404(Book, id=book_id)
-	return render(request, "books/illustration.html", {
-		"book_id": book.id,
-		"book_title": book.title
-		})
+	if request.method == "POST":
+		files = []
+		for i in request.POST.values():
+			if i != request.POST["csrfmiddlewaretoken"] and i != "":
+				files.append(i)
+		
+		for i in files:
+			illustration = Illustration(book=book, image=i)
+			illustration.save()
+
+		return HttpResponseRedirect(reverse("book", args=[book_id]))
+
+	else:
+		illustrations = Illustration.objects.filter(book=book)
+		return render(request, "books/illustration.html", {
+			"book_id": book.id,
+			"book_title": book.title,
+			"illustrations": illustrations
+			})
 
 @login_required
 def review_book(request, book_id):

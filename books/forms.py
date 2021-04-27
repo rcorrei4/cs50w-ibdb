@@ -1,5 +1,5 @@
 from django import forms
-from books.models import Book
+from books.models import Book, Illustration
 
 CHOICES = [('1', '☆'),
 		   ('2', '☆'),
@@ -25,3 +25,8 @@ class EditBookForm(forms.ModelForm):
 	class Meta:
 		model = Book
 		exclude = ['book_cover']
+
+class ImageForm(forms.ModelForm):
+	class Meta:
+		model = Illustration
+		fields = ["image"]
