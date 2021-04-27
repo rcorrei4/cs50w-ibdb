@@ -170,8 +170,12 @@ def rate_book(request):
 	else:
 		return JsonResponse({'error':'login_required'})
 
-def illustration(request):
-	pass
+def illustration(request, book_id):
+	book = get_object_or_404(Book, id=book_id)
+	return render(request, "books/illustration.html", {
+		"book_id": book.id,
+		"book_title": book.title
+		})
 
 @login_required
 def review_book(request, book_id):
