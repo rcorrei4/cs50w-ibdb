@@ -4,23 +4,37 @@
 {% block css %}<link rel="stylesheet" href="{% static 'css/illustration.css' %}">{% endblock %}
 
 {% block body %}
-<div class="content">
+<div class="content" id="{{ book_id }}">
 	<h1>Illustrations - {{ book_title }}</h1>
-	<form class="images" action="{% url 'illustration' book_id %}" method="post" enctype="multipart/form-data">
+	<form class="images" action="{% url 'illustration' book_id %}" enctype="multipart/form-data">
 		{% csrf_token %}
 		<div class="images-container">
 			{% for illustration in illustrations %}
 				<div class="image-box">
 					<img src="{{ illustration.image.url }}" height="150px">
 					<div class="buttons">
-						<div class="file-input">
-							<input type="file" id="file{{ illustration.id }}" class="file" name="file{{ illustration.id }}">
-							<label class="btn" for="file{{ illustration.id }}"><i class="bi bi-pencil"></i></label>
-						</div>
-						<button type="button" class="bi bi-trash btn"></button>
+						<button type="button" class="bi bi-trash btn deleteBtn" id="{{ illustration.id }}"></button>
 					</div>
 				</div>
 			{% endfor %}
+		</div>
+		<button type="button" id="saveBtn" onclick="submitImages()">Save</button>
+	</form>
+
+	<h1>Add Illustrations - {{ book_title }}</h1>
+	<form class="images add-form" action="{% url 'illustration' book_id %}" method="post" enctype="multipart/form-data">
+		{% csrf_token %}
+		<div class="images-container images-container-add">
+			<div class="image-box">
+				<img src="{% static 'images/no_image.jpg' %}" height="150px">
+				<div class="buttons">
+					<div class="file-input">
+						<input type="file" id="file{{ illustration.id }}" class="fileInput" name="file{{ illustration.id }}">
+						<label class="btn" for="file{{ illustration.id }}"><i class="bi bi-pencil"></i></label>
+					</div>
+					<button type="button" class="bi bi-trash btn"></button>
+				</div>
+			</div>
 		</div>
 		<button type="button" class="bi bi-plus-circle"></button>
 		<input type="submit" value="Save">

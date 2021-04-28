@@ -27,7 +27,7 @@
 	-ms-transform: translate(-50%, -50%);
 }
 
-.file {
+.fileInput {
 	opacity: 0;
 	width: 0.1px;
 	height: 0.1px;

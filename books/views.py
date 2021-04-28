@@ -170,19 +170,24 @@ def rate_book(request):
 	else:
 		return JsonResponse({'error':'login_required'})
 
+@login_required
 def illustration(request, book_id):
 	book = get_object_or_404(Book, id=book_id)
 	if request.method == "POST":
-		files = []
-		for i in request.POST.values():
-			if i != request.POST["csrfmiddlewaretoken"] and i != "":
-				files.append(i)
-		
-		for i in files:
+		for i in request.FILES.values():
 			illustration = Illustration(book=book, image=i)
 			illustration.save()
 
 		return HttpResponseRedirect(reverse("book", args=[book_id]))
+
+	if request.method == "DELETE":
+		data = json.loads(request.body)
+		print(data)
+		for i in data:
+			illustration = get_object_or_404(Illustration, id=i)
+			illustration.delete()
+
+		return JsonResponse({'success':'deleted'})
 
 	else:
 		illustrations = Illustration.objects.filter(book=book)
