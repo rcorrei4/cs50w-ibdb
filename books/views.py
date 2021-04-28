@@ -129,8 +129,10 @@ def edit_book(request, book_id):
 
 def get_book(request, book_id):
 	book = get_object_or_404(Book, id=book_id)
-	return JsonResponse({"book": {"title": f"{book.title}", "author": f"{book.author}",
-							 "synopsis": f"{book.synopsis}", "cover": f"{book.book_cover.url}"}})
+	print(book.genres)
+	return JsonResponse({"book": {"title": book.title, "author": book.author,
+						 "synopsis": book.synopsis, "cover": book.book_cover.url,
+						 "genre": book.genres["genres"][0] }})
 
 def search_book(request):
 	pass

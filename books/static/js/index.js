@@ -29,6 +29,7 @@ swiper.on('slideChangeTransitionEnd', function() {
 		document.querySelector('#book-title').innerText = result.book.title;
 		document.querySelector('#book-author').innerText = "by "+result.book.author;
 		document.querySelector('#book-synopsis').innerText = result.book.synopsis;
+    document.querySelector('#book-genre').innerText = result.book.genre;
 	})
 })
 
