@@ -82,6 +82,7 @@ DATABASES = {
     }
 }
 
+AUTH_USER_MODEL = 'books.User'
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -128,3 +129,4 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'books/static/images')
 # Login path
 LOGIN_URL = '/login'
 LOGOUT_REDIRECT_URL = '/login'
+

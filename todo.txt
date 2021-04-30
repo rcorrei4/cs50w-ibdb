@@ -33,5 +33,12 @@
 5. Add book page [done]
 	- Limit 5/day
 
-6. Maintainers account [Wikipedia idea]
-	A special account to allow users editing a book page
+6. Protection policy [Wikipedia idea]
+	- No protection
+	- Pending changes protection
+	- Semi protection
+	- Extended protection
+	- Template protection
+	- Full protection
+	- Others
+		- Book Post protection
