@@ -11,7 +11,7 @@ from django.urls import reverse
 from django.core.exceptions import ObjectDoesNotExist
 
 from .models import Book, Rating, Review, Illustration
-from .forms import ReviewForm, BookForm, EditBookForm, ImageForm
+from .forms import ReviewForm, BookForm, EditBookForm, ProtectionForm
 
 def index(request):
 	Books = Book.objects.all().order_by('id')
@@ -68,23 +68,35 @@ def register(request):
 		return render(request, "books/register.html")
 
 def book(request, book_id):
-	# Get book, illustrations and reviews objects
 	book = get_object_or_404(Book, id=book_id)
-	illustrations = Illustration.objects.filter(book=book)
-	reviews = Review.objects.filter(book=book)
+	if request.method == "POST":
+		if request.user.is_superuser:
+			form = ProtectionForm(request.POST)
+			if form.is_valid():
+				book.protection = form.cleaned_data["protection"]
+				book.save()
+				return HttpResponseRedirect(reverse("book", args=[book.id]))
+		else:
+			return HttpResponseRedirect(reverse("book", args=[book.id]))
 
-	context = {
-		"Book": book,
-		"Illustrations": illustrations,
-		"Reviews": reviews
-	}
-	# Show user rating if exists
-	if request.user.is_authenticated and Rating.objects.filter(user=request.user, book=book).exists():
-		rating = Rating.objects.get(user=request.user, book=book)
-		context["rating_score"] = rating.score
-		return render(request, "books/book.html", context)
 	else:
-		return render(request, "books/book.html", context)
+		# Get book illustrations and reviews objects
+		illustrations = Illustration.objects.filter(book=book)
+		reviews = Review.objects.filter(book=book)
+
+		context = {
+			"Book": book,
+			"Illustrations": illustrations,
+			"Reviews": reviews,
+			"ProtectionForm": ProtectionForm()
+		}
+		# Show user rating if exists
+		if request.user.is_authenticated and Rating.objects.filter(user=request.user, book=book).exists():
+			rating = Rating.objects.get(user=request.user, book=book)
+			context["rating_score"] = rating.score
+			return render(request, "books/book.html", context)
+		else:
+			return render(request, "books/book.html", context)
 
 @login_required
 def contribute(request):

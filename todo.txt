@@ -42,3 +42,5 @@
 	- Full protection
 	- Others
 		- Book Post protection
+
+fix book post
