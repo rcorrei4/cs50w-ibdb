@@ -10,7 +10,7 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.urls import reverse
 from django.core.exceptions import ObjectDoesNotExist
 
-from .models import Book, Rating, Review, Illustration
+from .models import Book, Rating, Review, Illustration, User
 from .forms import ReviewForm, BookForm, EditBookForm, ProtectionForm
 
 def index(request):
@@ -104,6 +104,10 @@ def contribute(request):
 		form = BookForm(request.POST, request.FILES)
 		if form.is_valid():
 			book = form.save()
+			user = User.objects.get(username=request.user.username)
+			user.contributions += 1
+			user.save()
+			print(user.contributions)
 
 			return HttpResponseRedirect(reverse("book", args=[book.id]))
 		else:
@@ -127,6 +131,10 @@ def edit_book(request, book_id):
 		form = EditBookForm(request.POST, instance=book)
 		if form.is_valid():
 			edit_book = form.save()
+			user = User.objects.get(username=request.user.username)
+			user.contributions += 1
+			user.save()
+			print(user.contributions)
 
 			return HttpResponseRedirect(reverse("book", args=[book.id]))
 		else:

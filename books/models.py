@@ -5,6 +5,7 @@ from datetime import date
 
 class User(AbstractUser):
 	role = models.CharField(max_length=64, default="registered")
+	contributions = models.IntegerField(default=0)
 
 class Book(models.Model):
 	title = models.CharField(max_length=128)
