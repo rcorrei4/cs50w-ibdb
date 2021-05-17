@@ -10,17 +10,7 @@
 	</div>
 
 	<div class="book-show-info">
-		<h1 class="book-title" data-id="{{ Book.id }}">{{ Book.title }} <button type="button" id="protectionButton" class="bi bi-shield-lock"></button></h1>
-		<div id="protectionModal" class="modalProtection">
-			<div class="modal-content">
-				<span class="closeProtection">&times;</span>
-				<form class="rating" method="post">
-					{% csrf_token %}
-					{{ ProtectionForm.protection }}
-					<button type="submit">Save</button>
-				</form>
-			</div>
-		</div>
+		<h1 class="book-title" data-id="{{ Book.id }}">{{ Book.title }} <a href="{% url 'protect' Book.id %}" id="protectionButton" class="bi bi-shield-lock"></a></h1>
 		<h4>by {{ Book.author }} - Published on {{ Book.published }}</h4>
 		<div class="book-rating">
 			<div class="ibdb-rating">

@@ -4,7 +4,6 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from datetime import date
 
 class User(AbstractUser):
-	role = models.CharField(max_length=64, default="registered")
 	contributions = models.IntegerField(default=0)
 
 class Book(models.Model):
@@ -18,10 +17,15 @@ class Book(models.Model):
 	original_title = models.CharField(max_length=128)
 	characters = models.JSONField(max_length=528, default=dict)
 	keywords = models.JSONField(max_length=528, default=dict)
-	protection = models.CharField(max_length=128, default="no_protection")
+	protection = models.BooleanField(max_length=128, default=False)
 
 	def __str__(self):
 		return str(self.title)
+
+class BookRequest(Book):
+	user = models.ForeignKey(User, on_delete=models.CASCADE)
+	date = models.DateField(auto_now=True)
+	change = models.CharField(max_length=24)
 
 class Illustration(models.Model):
 	image = models.ImageField()

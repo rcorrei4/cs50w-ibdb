@@ -1,5 +1,5 @@
 from django import forms
-from books.models import Book, Illustration
+from books.models import Book, BookRequest, Illustration
 
 CHOICES = [('1', '☆'),
 		   ('2', '☆'),
@@ -32,6 +32,9 @@ class EditBookForm(forms.ModelForm):
 	class Meta:
 		model = Book
 		exclude = ['book_cover', "protection"]
+
+class EditBookProtectedForm(forms.ModelForm):
+	pass
 
 class ProtectionForm(forms.Form):
 	protection = forms.ChoiceField(choices=PROTECTIONS)

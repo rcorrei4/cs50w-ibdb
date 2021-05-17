@@ -7,19 +7,6 @@ let rateBtn = document.getElementById("rate-btn");
 let removeRating = document.getElementById("rate-remove-btn");
 let ratingStar = document.querySelectorAll('input[name="rating"]');
 
-let protectionButton = document.getElementById("protectionButton");
-let protectionModal = document.getElementById("protectionModal");
-let spanProtection = document.getElementsByClassName("closeProtection")[0];
-
-
-protectionButton.onclick = function () {
-	protectionModal.style.display = "block";
-}
-
-spanProtection.onclick = function() {
-  protectionModal.style.display = "none";
-}
-
 btn.onclick = function() {
   modal.style.display = "block";
 }

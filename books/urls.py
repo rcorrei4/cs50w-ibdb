@@ -14,5 +14,6 @@ urlpatterns = [
 	path('book/rate/', views.rate_book, name="rate"),
 	path('book/<str:book_id>/illustration', views.illustration, name="illustration"),
 	path('book/review/<str:book_id>', views.review_book, name="review_book"),
-	path('book/review/edit/<str:book_id>', views.edit_review, name="edit_review")
+	path('book/review/edit/<str:book_id>', views.edit_review, name="edit_review"),
+	path('book/protect/<str:book_id>', views.protect, name="protect")
 ]

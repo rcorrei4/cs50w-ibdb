@@ -10,8 +10,8 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.urls import reverse
 from django.core.exceptions import ObjectDoesNotExist
 
-from .models import Book, Rating, Review, Illustration, User
-from .forms import ReviewForm, BookForm, EditBookForm, ProtectionForm
+from .models import Book, BookRequest,Rating, Review, Illustration, User
+from .forms import ReviewForm, BookForm, EditBookForm, EditBookRequestForm, ProtectionForm
 
 def index(request):
 	Books = Book.objects.all().order_by('id')
@@ -69,34 +69,24 @@ def register(request):
 
 def book(request, book_id):
 	book = get_object_or_404(Book, id=book_id)
-	if request.method == "POST":
-		if request.user.is_superuser:
-			form = ProtectionForm(request.POST)
-			if form.is_valid():
-				book.protection = form.cleaned_data["protection"]
-				book.save()
-				return HttpResponseRedirect(reverse("book", args=[book.id]))
-		else:
-			return HttpResponseRedirect(reverse("book", args=[book.id]))
 
+	# Get book illustrations and reviews objects
+	illustrations = Illustration.objects.filter(book=book)
+	reviews = Review.objects.filter(book=book)
+
+	context = {
+		"Book": book,
+		"Illustrations": illustrations,
+		"Reviews": reviews,
+		"ProtectionForm": ProtectionForm()
+	}
+	# Show user rating if exists
+	if request.user.is_authenticated and Rating.objects.filter(user=request.user, book=book).exists():
+		rating = Rating.objects.get(user=request.user, book=book)
+		context["rating_score"] = rating.score
+		return render(request, "books/book.html", context)
 	else:
-		# Get book illustrations and reviews objects
-		illustrations = Illustration.objects.filter(book=book)
-		reviews = Review.objects.filter(book=book)
-
-		context = {
-			"Book": book,
-			"Illustrations": illustrations,
-			"Reviews": reviews,
-			"ProtectionForm": ProtectionForm()
-		}
-		# Show user rating if exists
-		if request.user.is_authenticated and Rating.objects.filter(user=request.user, book=book).exists():
-			rating = Rating.objects.get(user=request.user, book=book)
-			context["rating_score"] = rating.score
-			return render(request, "books/book.html", context)
-		else:
-			return render(request, "books/book.html", context)
+		return render(request, "books/book.html", context)
 
 @login_required
 def contribute(request):
@@ -107,7 +97,6 @@ def contribute(request):
 			user = User.objects.get(username=request.user.username)
 			user.contributions += 1
 			user.save()
-			print(user.contributions)
 
 			return HttpResponseRedirect(reverse("book", args=[book.id]))
 		else:
@@ -128,19 +117,21 @@ def contribute(request):
 def edit_book(request, book_id):
 	book = get_object_or_404(Book, id=book_id)
 	if request.method == "POST":
-		form = EditBookForm(request.POST, instance=book)
-		if form.is_valid():
-			edit_book = form.save()
-			user = User.objects.get(username=request.user.username)
-			user.contributions += 1
-			user.save()
-			print(user.contributions)
-
-			return HttpResponseRedirect(reverse("book", args=[book.id]))
+		if book.protection:
+			form = EditBookRequestForm()
 		else:
-			return render(request, "books/edit_book.html", {
-				"form": form
-				})
+			form = EditBookForm(request.POST, instance=book)
+			if form.is_valid():
+				edit_book = form.save()
+				user = User.objects.get(username=request.user.username)
+				user.contributions += 1
+				user.save()
+
+				return HttpResponseRedirect(reverse("book", args=[book.id]))
+			else:
+				return render(request, "books/edit_book.html", {
+					"form": form
+					})
 	else:
 		return render(request, "books/edit_book.html", {
 			"form": EditBookForm(instance=book),
@@ -149,7 +140,6 @@ def edit_book(request, book_id):
 
 def get_book(request, book_id):
 	book = get_object_or_404(Book, id=book_id)
-	print(book.genres)
 	return JsonResponse({"book": {"title": book.title, "author": book.author,
 						 "synopsis": book.synopsis, "cover": book.book_cover.url,
 						 "genre": book.genres["genres"][0] }})
@@ -204,7 +194,6 @@ def illustration(request, book_id):
 
 	if request.method == "DELETE":
 		data = json.loads(request.body)
-		print(data)
 		for i in data:
 			illustration = get_object_or_404(Illustration, id=i)
 			illustration.delete()
@@ -283,3 +272,18 @@ def edit_review(request, book_id):
 			"book": book,
 			"review": review
 			})
+
+def protect(request, book_id):
+	if request.user.is_superuser:
+		book = get_object_or_404(Book, id=book_id)
+
+		if book.protection:
+			book.protection = False
+		else:
+			book.protection = True
+
+		book.save()
+	else:
+		pass
+		
+	return HttpResponseRedirect(reverse("book", args=[book_id]))
