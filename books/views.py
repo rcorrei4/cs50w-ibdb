@@ -118,7 +118,24 @@ def edit_book(request, book_id):
 	book = get_object_or_404(Book, id=book_id)
 	if request.method == "POST":
 		if book.protection:
-			form = EditBookForm(request.POST)
+			book = BookRequest()
+			form = EditBookRequestForm(request.POST, instance=book)
+			if form.is_valid():
+				book.title = form.cleaned_data["title"]
+				book.isbn = form.cleaned_data["isbn"]
+				book.synopsis = form.cleaned_data["synopsis"]
+				book.genres = form.cleaned_data["genres"]
+				book.published = form.cleaned_data["published"]
+				book.original_title = form.cleaned_data["original_title"]
+				book.characters = form.cleaned_data["characters"]
+				book.keywords = form.cleaned_data["keywords"]
+				book.change = "Book"
+				book.user = User.objects.get(username=request.user.username)
+				book.book_cover = "NULL"
+				book.save()
+
+				return HttpResponseRedirect(reverse("book", args=[book.id]))
+
 		else:
 			form = EditBookForm(request.POST, instance=book)
 			if form.is_valid():

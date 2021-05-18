@@ -6,23 +6,28 @@ from datetime import date
 class User(AbstractUser):
 	contributions = models.IntegerField(default=0)
 
-class Book(models.Model):
-	title = models.CharField(max_length=128)
-	author = models.CharField(max_length=64)
-	book_cover = models.ImageField(upload_to="books")
+class AbstractBook(models.Model):
+	title = models.CharField(max_length=128, default="")
+	author = models.CharField(max_length=64, default="")
 	isbn = models.JSONField(max_length=64, default=dict)
-	synopsis = models.TextField(max_length=600)
+	synopsis = models.TextField(max_length=600, default="")
 	genres = models.JSONField(max_length=64, default=dict)
 	published = models.DateField(default=date(2000, 2, 2))
-	original_title = models.CharField(max_length=128)
+	original_title = models.CharField(max_length=128, default="")
 	characters = models.JSONField(max_length=528, default=dict)
 	keywords = models.JSONField(max_length=528, default=dict)
+
+	class Meta:
+		abstract = True
+
+class Book(AbstractBook):
+	book_cover = models.ImageField(upload_to="books")
 	protection = models.BooleanField(max_length=128, default=False)
 
 	def __str__(self):
 		return str(self.title)
 
-class BookRequest(Book):
+class BookRequest(AbstractBook):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	date = models.DateField(auto_now=True)
 	change = models.CharField(max_length=24)
