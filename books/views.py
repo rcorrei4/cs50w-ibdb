@@ -133,6 +133,11 @@ def edit_book(request, book_id):
 					"form": form
 					})
 	else:
+		if book.protection:
+			return render(request, "books/edit_book.html", {
+				"form": EditBookRequestForm(instance=book),
+				"book_id": book.id
+				})
 		return render(request, "books/edit_book.html", {
 			"form": EditBookForm(instance=book),
 			"book_id": book.id
