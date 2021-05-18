@@ -33,8 +33,10 @@ class EditBookForm(forms.ModelForm):
 		model = Book
 		exclude = ['book_cover', "protection"]
 
-class EditBookProtectedForm(forms.ModelForm):
-	pass
+class EditBookRequestForm(forms.ModelForm):
+	class Meta:
+		model = BookRequest
+		exclude = ['book_cover', "protection", "user", "date", "change"]
 
 class ProtectionForm(forms.Form):
 	protection = forms.ChoiceField(choices=PROTECTIONS)

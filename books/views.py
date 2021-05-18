@@ -118,7 +118,7 @@ def edit_book(request, book_id):
 	book = get_object_or_404(Book, id=book_id)
 	if request.method == "POST":
 		if book.protection:
-			form = EditBookRequestForm()
+			form = EditBookForm(request.POST)
 		else:
 			form = EditBookForm(request.POST, instance=book)
 			if form.is_valid():
