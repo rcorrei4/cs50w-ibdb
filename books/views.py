@@ -10,7 +10,7 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.urls import reverse
 from django.core.exceptions import ObjectDoesNotExist
 
-from .models import Book, BookRequest,Rating, Review, Illustration, User
+from .models import Book, BookRequest,Rating, Review, Illustration, IllustrationPostRequest, IllustrationDeleteRequest, User
 from .forms import ReviewForm, BookForm, EditBookForm, EditBookRequestForm, ProtectionForm
 
 def index(request):
@@ -208,17 +208,32 @@ def rate_book(request):
 def illustration(request, book_id):
 	book = get_object_or_404(Book, id=book_id)
 	if request.method == "POST":
-		for i in request.FILES.values():
-			illustration = Illustration(book=book, image=i)
-			illustration.save()
+		if book.protection:
+			user = get_object_or_404(User, username=request.user.username)
+			for i in request.FILES.values():
+				illustration = IllustrationPostRequest(user=user, book=book, image=i)
+				illustration.save()
+
+		else:
+			for i in request.FILES.values():
+				illustration = Illustration(book=book, image=i)
+				illustration.save()
 
 		return HttpResponseRedirect(reverse("book", args=[book_id]))
 
 	if request.method == "DELETE":
 		data = json.loads(request.body)
-		for i in data:
-			illustration = get_object_or_404(Illustration, id=i)
-			illustration.delete()
+		if book.protection:
+			user = get_object_or_404(User, username=request.user.username)
+
+			for i in data:
+				illustration = get_object_or_404(Illustration, id=i)
+				illustration_delete = IllustrationDeleteRequest(user=user, illustration=illustration)
+				illustration_delete.save()
+		else:
+			for i in data:
+				illustration = get_object_or_404(Illustration, id=i)
+				illustration.delete()
 
 		return JsonResponse({'success':'deleted'})
 

@@ -32,12 +32,30 @@ class BookRequest(AbstractBook):
 	date = models.DateField(auto_now=True)
 	change = models.CharField(max_length=24)
 
+	def __str__(self):
+		return str(self.title +" - "+ self.change)
+
 class Illustration(models.Model):
 	image = models.ImageField()
 	book = models.ForeignKey(Book, on_delete=models.CASCADE)
 
 	def __str__(self):
 		return str(self.book)
+
+class IllustrationPostRequest(models.Model):
+	user = models.ForeignKey(User, on_delete=models.CASCADE)
+	image = models.CharField(max_length=256)
+	book = models.ForeignKey(Book, on_delete=models.CASCADE)
+
+	def __str__(self):
+		return str(self.book)
+
+class IllustrationDeleteRequest(models.Model):
+	user = models.ForeignKey(User, on_delete=models.CASCADE)
+	illustration = models.ForeignKey(Illustration, on_delete=models.CASCADE)
+
+	def __str__(self):
+		return str(self.illustration.book)
 
 class Rating(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
