@@ -15,5 +15,7 @@ urlpatterns = [
 	path('book/<str:book_id>/illustration', views.illustration, name="illustration"),
 	path('book/review/<str:book_id>', views.review_book, name="review_book"),
 	path('book/review/edit/<str:book_id>', views.edit_review, name="edit_review"),
-	path('book/protect/<str:book_id>', views.protect, name="protect")
+	path('book/protect/<str:book_id>', views.protect, name="protect"),
+	path('book/aprove/', views.aprove, name="aprove"),
+	path('profile/<str:user_id>', views.profile, name="profile")
 ]

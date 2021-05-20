@@ -10,7 +10,13 @@
 	</div>
 
 	<div class="book-show-info">
-		<h1 class="book-title" data-id="{{ Book.id }}">{{ Book.title }} <a href="{% url 'protect' Book.id %}" id="protectionButton" class="bi bi-shield-lock"></a></h1>
+		{% if request.user.is_superuser %}
+			{% if Book.protection %}
+				<h1 class="book-title" data-id="{{ Book.id }}">{{ Book.title }} <a href="{% url 'protect' Book.id %}" id="protectionButton" class="bi bi-shield-lock protection"></a></h1>
+			{% else %}
+				<h1 class="book-title" data-id="{{ Book.id }}">{{ Book.title }} <a href="{% url 'protect' Book.id %}" id="protectionButton" class="bi bi-shield-lock no-protection"></a></h1>
+			{% endif %}
+		{% endif %}
 		<h4>by {{ Book.author }} - Published on {{ Book.published }}</h4>
 		<div class="book-rating">
 			<div class="ibdb-rating">

@@ -218,6 +218,7 @@ def illustration(request, book_id):
 			for i in request.FILES.values():
 				illustration = Illustration(book=book, image=i)
 				illustration.save()
+				user.contributions += 1
 
 		return HttpResponseRedirect(reverse("book", args=[book_id]))
 
@@ -234,6 +235,7 @@ def illustration(request, book_id):
 			for i in data:
 				illustration = get_object_or_404(Illustration, id=i)
 				illustration.delete()
+				user.contributions += 1
 
 		return JsonResponse({'success':'deleted'})
 
@@ -324,3 +326,12 @@ def protect(request, book_id):
 		pass
 		
 	return HttpResponseRedirect(reverse("book", args=[book_id]))
+
+def aprove(request):
+	return render(request, "books/aprove.html")
+
+def profile(request, user_id):
+	return render(request, "books/profile.html", {
+		"reviews": Review.objects.filter(user=request.user).count(),
+		"ratings": Rating.objects.filter(user=request.user).count()
+		})

@@ -1,0 +1,21 @@
+{% extends 'books/layout.html' %}
+{% load static %}
+
+{% block css %}<link rel="stylesheet" href="">{% endblock %}
+
+{% block body %}
+<div>
+	<div class="user">
+		<img src="{% static 'images/profile-image.png' %}" width="200px">
+		<h1>{{ request.user.username }}</h1>
+	</div>
+	<div class="user-info">
+		<ul>
+			<li><b>Contributions</b>{{ request.user.contributions }}</li>
+			<li><b>Reviews</b>{{ reviews }}</li>
+			<li><b>Ratings</b>{{ ratings }}</li>
+			<li><b>Books<b><small>Read {{ read }}</small><small>Reading {{ reading }}</small><small>Want to read {{ want }}</small></li>
+		</ul>
+	</div>
+</div>
+{% endblock %}
