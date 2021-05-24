@@ -3,9 +3,6 @@ from django.contrib.auth.models import AbstractUser
 from django.core.validators import MaxValueValidator, MinValueValidator
 from datetime import date
 
-class User(AbstractUser):
-	contributions = models.IntegerField(default=0)
-
 class AbstractBook(models.Model):
 	title = models.CharField(max_length=128, default="")
 	author = models.CharField(max_length=64, default="")
@@ -26,6 +23,12 @@ class Book(AbstractBook):
 
 	def __str__(self):
 		return str(self.title)
+
+class User(AbstractUser):
+	contributions = models.IntegerField(default=0)
+	read = models.ManyToManyField(Book, related_name="books_already_read")
+	reading = models.ManyToManyField(Book, related_name="books_currently_reading")
+	want_to_read = models.ManyToManyField(Book, related_name="books_to_read")
 
 class BookRequest(AbstractBook):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)

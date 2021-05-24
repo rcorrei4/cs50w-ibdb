@@ -331,7 +331,11 @@ def aprove(request):
 	return render(request, "books/aprove.html")
 
 def profile(request, user_id):
+	user = User.objects.get(username=request.user.username)
 	return render(request, "books/profile.html", {
 		"reviews": Review.objects.filter(user=request.user).count(),
-		"ratings": Rating.objects.filter(user=request.user).count()
+		"ratings": Rating.objects.filter(user=request.user).count(),
+		"read": user.read.count(),
+		"reading": user.reading.count(),
+		"want": user.reading.count(),
 		})
