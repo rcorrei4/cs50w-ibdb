@@ -39,7 +39,7 @@ class BookRequest(AbstractBook):
 		return str(self.title +" - "+ self.change)
 
 class Illustration(models.Model):
-	image = models.ImageField()
+	image = models.ImageField(upload_to="books")
 	book = models.ForeignKey(Book, on_delete=models.CASCADE)
 
 	def __str__(self):
@@ -47,7 +47,7 @@ class Illustration(models.Model):
 
 class IllustrationPostRequest(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
-	image = models.CharField(max_length=256)
+	image = models.ImageField(upload_to="books")
 	book = models.ForeignKey(Book, on_delete=models.CASCADE)
 
 	def __str__(self):

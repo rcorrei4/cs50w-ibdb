@@ -208,8 +208,8 @@ def rate_book(request):
 def illustration(request, book_id):
 	book = get_object_or_404(Book, id=book_id)
 	if request.method == "POST":
+		user = get_object_or_404(User, username=request.user.username)
 		if book.protection:
-			user = get_object_or_404(User, username=request.user.username)
 			for i in request.FILES.values():
 				illustration = IllustrationPostRequest(user=user, book=book, image=i)
 				illustration.save()
@@ -224,9 +224,8 @@ def illustration(request, book_id):
 
 	if request.method == "DELETE":
 		data = json.loads(request.body)
+		user = get_object_or_404(User, username=request.user.username)
 		if book.protection:
-			user = get_object_or_404(User, username=request.user.username)
-
 			for i in data:
 				illustration = get_object_or_404(Illustration, id=i)
 				illustration_delete = IllustrationDeleteRequest(user=user, illustration=illustration)
@@ -328,14 +327,28 @@ def protect(request, book_id):
 	return HttpResponseRedirect(reverse("book", args=[book_id]))
 
 def aprove(request):
-	return render(request, "books/aprove.html")
+	book_post_request = BookRequest.objects.all()
+	illustration_post_request = IllustrationPostRequest.objects.all()
+	illustration_delete_request = IllustrationDeleteRequest.objects.all()
+	
+	return render(request, "books/aprove.html", {
+		"book_post": book_post_request,
+		"illustration_post": illustration_post_request,
+		"illustration_delete": illustration_delete_request
+		})
 
 def profile(request, user_id):
 	user = User.objects.get(username=request.user.username)
+	book_post_request = BookRequest.objects.filter(user=user)
+	illustration_post_request = IllustrationPostRequest.objects.filter(user=user)
+	illustration_delete_request = IllustrationDeleteRequest.objects.filter(user=user)
 	return render(request, "books/profile.html", {
 		"reviews": Review.objects.filter(user=request.user).count(),
 		"ratings": Rating.objects.filter(user=request.user).count(),
 		"read": user.read.count(),
 		"reading": user.reading.count(),
 		"want": user.reading.count(),
+		"book_post": book_post_request,
+		"illustration_post": illustration_post_request,
+		"illustration_delete": illustration_delete_request
 		})

@@ -17,5 +17,35 @@
 			<li><b>Books<b><small>Read {{ read }}</small><small>Reading {{ reading }}</small><small>Want to read {{ want }}</small></li>
 		</ul>
 	</div>
+	<div class="contributions-post">
+		<div>
+			<h1>Books contributions to be aproved</h1>
+			{% for book in book_post %}
+				<div>
+					<a href="{% url 'book' book.id %}">{{ book.title }}</a>
+					<img src="{{ illustration.image.url }}" height="150px">
+				</div>
+			{% endfor %}
+		</div>
+
+		<div>
+			<h1>Illustrations Contributions to be aproved</h1>
+			{% for illustration in illustration_post %}
+				<div>
+					<a href="{% url 'book' illustration.book.id %}">{{ illustration.book.title }}</a>
+					<img src="{{ illustration.image.url }}" height="150px">
+				</div>
+			{% endfor %}
+		</div>
+
+		<div>
+			{% for illustration in illustration_delete %}
+				<div>
+					<a href="{% url 'book' illustration.illustration.book.id %}">{{ illustration.book.title }}</a>
+					<img src="{{ illustration.illustration.book.url }}" height="150px">
+				</div>
+			{% endfor %}
+		</div>
+	</div>
 </div>
 {% endblock %}
