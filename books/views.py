@@ -118,21 +118,22 @@ def edit_book(request, book_id):
 	book = get_object_or_404(Book, id=book_id)
 	if request.method == "POST":
 		if book.protection:
-			book = BookRequest()
+			new_book = BookRequest()
 			form = EditBookRequestForm(request.POST, instance=book)
 			if form.is_valid():
-				book.title = form.cleaned_data["title"]
-				book.isbn = form.cleaned_data["isbn"]
-				book.synopsis = form.cleaned_data["synopsis"]
-				book.genres = form.cleaned_data["genres"]
-				book.published = form.cleaned_data["published"]
-				book.original_title = form.cleaned_data["original_title"]
-				book.characters = form.cleaned_data["characters"]
-				book.keywords = form.cleaned_data["keywords"]
-				book.change = "Book"
-				book.user = User.objects.get(username=request.user.username)
-				book.book_cover = "NULL"
-				book.save()
+				new_book.title = form.cleaned_data["title"]
+				new_book.author = form.cleaned_data["author"]
+				new_book.isbn = form.cleaned_data["isbn"]
+				new_book.synopsis = form.cleaned_data["synopsis"]
+				new_book.genres = form.cleaned_data["genres"]
+				new_book.published = form.cleaned_data["published"]
+				new_book.original_title = form.cleaned_data["original_title"]
+				new_book.characters = form.cleaned_data["characters"]
+				new_book.keywords = form.cleaned_data["keywords"]
+				new_book.change = "Book"
+				new_book.user = User.objects.get(username=request.user.username)
+				new_book.book_cover = "NULL"
+				new_book.save()
 
 				return HttpResponseRedirect(reverse("book", args=[book.id]))
 
@@ -327,14 +328,68 @@ def protect(request, book_id):
 	return HttpResponseRedirect(reverse("book", args=[book_id]))
 
 def aprove(request):
-	book_post_request = BookRequest.objects.all()
-	illustration_post_request = IllustrationPostRequest.objects.all()
-	illustration_delete_request = IllustrationDeleteRequest.objects.all()
+	if request.method == "POST":
+		data = json.loads(request.body)
+		book_post_id = data.get("id")
+		
+		book_request_model = get_object_or_404(BookRequest, id=book_post_id)
+		book = Book.objects.get(title=book_request_model.title)
+		book.title = book_request_model.title
+		book.author = book_request_model.author
+		book.isbn = book_request_model.isbn
+		book.synopsis = book_request_model.synopsis
+		book.genres = book_request_model.genres
+		book.published = book_request_model.published
+		book.original_title = book_request_model.original_title
+		book.characters = book_request_model.characters
+		book.keywords = book_request_model.keywords
+		book.save()
+
+		book_request_model.delete()
+
+		return JsonResponse({'success':'aproved'})
+
+	else:
+		book_post_request = BookRequest.objects.all()
+		illustration_post_request = IllustrationPostRequest.objects.all()
+		illustration_delete_request = IllustrationDeleteRequest.objects.all()
+		
+		return render(request, "books/aprove.html", {
+			"book_post": book_post_request,
+			"illustration_post": illustration_post_request,
+			"illustration_delete": illustration_delete_request
+			})
+
+def aprove_illustration(request):
+	if request.method == "POST":
+		data = json.loads(request.body)
+		illustration_post_request_id = data.get("id")
+
+		illustration_post_request = IllustrationPostRequest.objects.get(id=illustration_post_request_id)
+		illustration = Illustration(image=illustration_post_request.image, book=illustration_post_request.book)
+		illustration.save()
+		illustration_post_request.delete()
+
+		return JsonResponse({'success':'aproved'})
+
+	if request.method == "DELETE":
+		data = json.loads(request.body)
+		illustration_delete_request_id = data.get("id")
+
+		illustration_delete_request = IllustrationDeleteRequest.objects.get(id=illustration_delete_request_id)
+		illustration_delete_request.illustration.delete()
+		illustration_delete_request.delete()
+
+		return JsonResponse({'success':'aproved'})
+
+	else:
+		return HttpResponseRedirect(reverse("aprove"))
+
+def show_request(request, request_id):
+	book = get_object_or_404(BookRequest, id=request_id)
 	
-	return render(request, "books/aprove.html", {
-		"book_post": book_post_request,
-		"illustration_post": illustration_post_request,
-		"illustration_delete": illustration_delete_request
+	return render(request, "books/show_request.html", {
+		"Book": book
 		})
 
 def profile(request, user_id):
@@ -342,6 +397,7 @@ def profile(request, user_id):
 	book_post_request = BookRequest.objects.filter(user=user)
 	illustration_post_request = IllustrationPostRequest.objects.filter(user=user)
 	illustration_delete_request = IllustrationDeleteRequest.objects.filter(user=user)
+
 	return render(request, "books/profile.html", {
 		"reviews": Review.objects.filter(user=request.user).count(),
 		"ratings": Rating.objects.filter(user=request.user).count(),
