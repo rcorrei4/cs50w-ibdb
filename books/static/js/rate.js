@@ -19,11 +19,11 @@ rateBtn.onclick = function() {
 	for(var i = 0; i < ratingStar.length; i++){
 	    if(ratingStar[i].checked){
 	        fetch(`/book/rate/`, {
-				method: 'POST',
-				headers:{"X-CSRFToken": csrf[0].value},
-				body: JSON.stringify({
-					rating: ratingStar[i].value,
-					book_id: book.dataset.id
+						method: 'POST',
+						headers:{"X-CSRFToken": csrf[0].value},
+						body: JSON.stringify({
+							rating: ratingStar[i].value,
+							book_id: book.dataset.id
 				})
 
 			})

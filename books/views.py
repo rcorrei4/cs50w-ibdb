@@ -6,9 +6,11 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
 from django.db import IntegrityError
+from django.db.models import Q
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.urls import reverse
 from django.core.exceptions import ObjectDoesNotExist
+
 
 from .models import Book, BookRequest,Rating, Review, Illustration, IllustrationPostRequest, IllustrationDeleteRequest, User
 from .forms import ReviewForm, BookForm, EditBookForm, EditBookRequestForm, ProtectionForm
@@ -167,8 +169,13 @@ def get_book(request, book_id):
 						 "synopsis": book.synopsis, "cover": book.book_cover.url,
 						 "genre": book.genres["genres"][0] }})
 
-def search_book(request):
-	pass
+def search(request):
+	entry_search = request.GET['q']
+	books = Book.objects.filter(Q(title__icontains=entry_search) | Q(author__icontains=entry_search) | Q(isbn__icontains=entry_search) | Q(genres__icontains=entry_search) | Q(original_title__icontains=entry_search) | Q(characters__icontains=entry_search) | Q(keywords__icontains=entry_search))
+
+	return render(request, "books/search.html", {
+		"books": books
+		})
 
 def rate_book(request):
 	if request.user.is_authenticated:
@@ -329,6 +336,7 @@ def protect(request, book_id):
 
 def aprove(request):
 	if request.method == "POST":
+		user = get_object_or_404(User, username=request.user.username)
 		data = json.loads(request.body)
 		book_post_id = data.get("id")
 		
@@ -344,6 +352,7 @@ def aprove(request):
 		book.characters = book_request_model.characters
 		book.keywords = book_request_model.keywords
 		book.save()
+		user.contributions += 1
 
 		book_request_model.delete()
 
@@ -362,23 +371,27 @@ def aprove(request):
 
 def aprove_illustration(request):
 	if request.method == "POST":
+		user = get_object_or_404(User, username=request.user.username)
 		data = json.loads(request.body)
 		illustration_post_request_id = data.get("id")
 
 		illustration_post_request = IllustrationPostRequest.objects.get(id=illustration_post_request_id)
 		illustration = Illustration(image=illustration_post_request.image, book=illustration_post_request.book)
 		illustration.save()
+		user.contributions += 1
 		illustration_post_request.delete()
 
 		return JsonResponse({'success':'aproved'})
 
 	if request.method == "DELETE":
+		user = get_object_or_404(User, username=request.user.username)
 		data = json.loads(request.body)
 		illustration_delete_request_id = data.get("id")
 
 		illustration_delete_request = IllustrationDeleteRequest.objects.get(id=illustration_delete_request_id)
 		illustration_delete_request.illustration.delete()
 		illustration_delete_request.delete()
+		user.contributions += 1
 
 		return JsonResponse({'success':'aproved'})
 
@@ -408,3 +421,35 @@ def profile(request, user_id):
 		"illustration_post": illustration_post_request,
 		"illustration_delete": illustration_delete_request
 		})
+
+def book_status(request, book_id):
+	if request.method == "POST":
+		data = json.loads(request.body)
+		option = data.get("option")
+
+		book = get_object_or_404(Book, id=book_id)
+		user = User.objects.get(username=request.user.username)
+		print(User.objects.filter(username=user.username, read=book).count())
+
+		if User.objects.filter(username=user.username, read=book).count() >= 1:
+			user.read.remove(book)
+
+		if User.objects.filter(username=user.username, reading=book).count() >= 1:
+			user.read.remove(book)
+
+		if User.objects.filter(username=user.username, want_to_read=book).count() >= 1:
+			user.read.remove(book)
+
+		if option == "want_read":
+			user.want_to_read.add(book)
+
+		if option == "reading":
+			user.reading.add(book)
+
+		if option == "read":
+			user.read.add(book)
+
+		user.save()
+		return JsonResponse({'success': option})
+	else:
+		return HttpResponseRedirect(reverse("index"))

@@ -16,6 +16,8 @@
 			{% else %}
 				<h1 class="book-title" data-id="{{ Book.id }}">{{ Book.title }} <a href="{% url 'protect' Book.id %}" id="protectionButton" class="bi bi-shield-lock no-protection"></a></h1>
 			{% endif %}
+		{% else %}
+			<h1 class="book-title" data-id="{{ Book.id }}">{{ Book.title }}</h1>
 		{% endif %}
 		<h4>by {{ Book.author }} - Published on {{ Book.published }}</h4>
 		<div class="book-rating">
@@ -52,7 +54,15 @@
 			</div>
 		</div>
 		<p>{{ Book.synopsis|linebreaks }}</p>
-		<button class="want-read">+ Want to read</button>
+		<form class="want-read-form">
+			{% csrf_token %}
+			<select id="want-read" name="want-read" class="want-read">
+				<option value="1">Add book</option>
+				<option value="want_read">Want to read</option>
+				<option value="reading">Currently reading</option>
+				<option value="read">Read</option>
+			</select>
+		</form>
 	</div>
 </div>
 
@@ -62,9 +72,9 @@
 		<h4><b>ISBN-10</b>{{ Book.isbn.isbn10 }}</h4>
 		<h4><b>ISBN-13</b>{{ Book.isbn.isbn13 }}</h4>
 		<h4><b>Original title</b>{{ Book.original_title }}</h4>
-		<h4><b>Characters</b>{% for character in Book.characters.characters %}<a href="{% url 'search_book' %}?q={{ character }}">{{ character }}</a>{% endfor %}</h4>
-		<h4><b>Genres</b>{% for genres in Book.genres.genres %}<a href="{% url 'search_book' %}?q={{ genres }}">{{ genres }}</a>{% endfor %}</h4>
-		<h4><b>Keywords</b>{% for keywords in Book.keywords.keywords %}<a href="{% url 'search_book' %}?q={{ keywords }}">{{ keywords }}</a>{% endfor %}</h4>
+		<h4><b>Characters</b>{% for character in Book.characters.characters %}<a href="{% url 'search' %}?q={{ character }}">{{ character }}</a>{% endfor %}</h4>
+		<h4><b>Genres</b>{% for genres in Book.genres.genres %}<a href="{% url 'search' %}?q={{ genres }}">{{ genres }}</a>{% endfor %}</h4>
+		<h4><b>Keywords</b>{% for keywords in Book.keywords.keywords %}<a href="{% url 'search' %}?q={{ keywords }}">{{ keywords }}</a>{% endfor %}</h4>
 	</div>
 
 	<div class="book-illustrations">
@@ -105,4 +115,5 @@
 </div>
 
 <script src="{% static 'js/rate.js' %}"></script>
+<script src="{% static 'js/book_status.js' %}"></script>
 {% endblock %}
