@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Avg
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import MaxValueValidator, MinValueValidator
 from datetime import date
@@ -20,9 +21,22 @@ class AbstractBook(models.Model):
 class Book(AbstractBook):
 	book_cover = models.ImageField(upload_to="books")
 	protection = models.BooleanField(max_length=128, default=False)
+	score = models.JSONField(max_length=128)
 
 	def __str__(self):
 		return str(self.title)
+
+	@property
+	def get_score(self):
+		score = dict()
+		score["avg"] = Rating.objects.filter(book=self).aggregate(Avg('score'))["score__avg"]
+		score["total"] = Rating.objects.filter(book=self).count()
+
+		for i in range(1, 6):
+			score["score_"+str(i)] = Rating.objects.filter(score=i).count()
+
+		self.score = score
+		self.save()
 
 class User(AbstractUser):
 	contributions = models.IntegerField(default=0)
@@ -72,6 +86,10 @@ class Rating(models.Model):
 
 	def __str__(self):
 		return str(f"{self.user} - {self.book}: Rating {self.score}")
+
+	def save(self, *args, **kwargs):
+		self.book.get_score
+		super().save(*args, **kwargs)
 
 class Review(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
