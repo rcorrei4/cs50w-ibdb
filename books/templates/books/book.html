@@ -56,11 +56,11 @@
 		<p>{{ Book.synopsis|linebreaks }}</p>
 		<form class="want-read-form">
 			{% csrf_token %}
-			<select id="want-read" name="want-read" class="want-read">
+			<select id="want-read" name="want-read" class="want-read" onchange="bookStatus()">
 				<option value="1">Add book</option>
-				<option value="want_read">Want to read</option>
-				<option value="reading">Currently reading</option>
-				<option value="read">Read</option>
+				<option value="want_read" {% if want_to_read %}selected{% endif %}>Want to read {% if want_to_read %}✓{% endif %}</option>
+				<option value="reading" {% if reading %}selected{% endif %}>Currently reading {% if reading %}✓{% endif %}</option>
+				<option value="read" {% if read %}selected{% endif %}>Read {% if read %}✓{% endif %}</option>
 			</select>
 		</form>
 	</div>

@@ -76,12 +76,29 @@ def book(request, book_id):
 	illustrations = Illustration.objects.filter(book=book)
 	reviews = Review.objects.filter(book=book)
 
+	read = False
+	reading = False
+	want_to_read = False
+
+	if User.objects.filter(username=request.user.username, read=book).exists():
+		read = True
+
+	if User.objects.filter(username=request.user.username, reading=book).exists():
+		reading = True
+
+	if User.objects.filter(username=request.user.username, want_to_read=book).exists():
+		want_to_read= True
+
 	context = {
 		"Book": book,
 		"Illustrations": illustrations,
 		"Reviews": reviews,
-		"ProtectionForm": ProtectionForm()
+		"ProtectionForm": ProtectionForm(),
+		"read": read,
+		"reading": reading,
+		"want_to_read": want_to_read
 	}
+
 	# Show user rating if exists
 	if request.user.is_authenticated and Rating.objects.filter(user=request.user, book=book).exists():
 		rating = Rating.objects.get(user=request.user, book=book)
@@ -429,16 +446,15 @@ def book_status(request, book_id):
 
 		book = get_object_or_404(Book, id=book_id)
 		user = User.objects.get(username=request.user.username)
-		print(User.objects.filter(username=user.username, read=book).count())
 
-		if User.objects.filter(username=user.username, read=book).count() >= 1:
+		if User.objects.filter(username=user.username, read=book).exists():
 			user.read.remove(book)
 
-		if User.objects.filter(username=user.username, reading=book).count() >= 1:
-			user.read.remove(book)
+		if User.objects.filter(username=user.username, reading=book).exists():
+			user.reading.remove(book)
 
-		if User.objects.filter(username=user.username, want_to_read=book).count() >= 1:
-			user.read.remove(book)
+		if User.objects.filter(username=user.username, want_to_read=book).exists():
+			user.want_to_read.remove(book)
 
 		if option == "want_read":
 			user.want_to_read.add(book)
