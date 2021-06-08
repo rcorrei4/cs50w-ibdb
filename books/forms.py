@@ -17,12 +17,12 @@ PROTECTIONS = [('no_protection', 'no_protection'),
 class ReviewForm(forms.Form):
 	rating = forms.ChoiceField(choices=CHOICES)
 	title = forms.CharField(max_length=175)
-	text = forms.CharField(max_length=500)
+	text = forms.CharField(max_length=1024)
 
 class BookForm(forms.ModelForm):
 	class Meta:
 		model = Book
-		exclude = ["protection"]
+		exclude = ["protection", "score"]
 
 		widgets = {
             'synopsis': forms.Textarea(),
@@ -31,7 +31,7 @@ class BookForm(forms.ModelForm):
 class EditBookForm(forms.ModelForm):
 	class Meta:
 		model = Book
-		exclude = ['book_cover', "protection"]
+		exclude = ['book_cover', "protection", "score"]
 
 class EditBookRequestForm(forms.ModelForm):
 	class Meta:

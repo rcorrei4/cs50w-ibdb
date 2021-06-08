@@ -21,11 +21,12 @@
 		</div>
 	</div>
 	<div class="form-input-text">
-		<input type="text" name="review-title" placeholder="Review title" value="{{ review.title }}">
-		<textarea name="review-text" placeholder="Review text" form="review-form">{{ review.text }}</textarea>
+		<input type="text" name="title" placeholder="Review title" value="{{ review.title }}">
+		<textarea name="text" placeholder="Review text" form="review-form">{{ review.text }}</textarea>
+		{% if message %}
+			<h5 id="error-message">{{ message }}</h5>
+		{% endif %}
 		<button type="submit">POST</button>
 	</div>
 </form>
-
-<script src="{% static 'js/review.js' %}"></script>
 {% endblock %}

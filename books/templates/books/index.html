@@ -4,7 +4,7 @@
 {% block css %}<link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">{% endblock %}
 
 {% block body %}
-<div class="content">
+<div class="slider-content">
 	<div class="book-info">
 		<h1 id="book-title">{{ Books.first.title }}</h1> <br>
 		<p id="book-author">by {{ Books.first.author }}</p>
@@ -24,7 +24,6 @@
 			    {% endfor %}
 			  </div>
 
-			  <!-- If we need navigation buttons -->
 			  <div class="swiper-button-prev"></div>
 			  <div class="swiper-button-next"></div>
 
@@ -52,6 +51,10 @@
 		</div>
 		<a href="#">Browse books ></a>
 	</div>
+</div>
+
+<div>
+	
 </div>
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script src="{% static 'js/index.js' %}"></script>

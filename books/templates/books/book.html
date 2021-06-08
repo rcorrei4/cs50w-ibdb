@@ -23,9 +23,65 @@
 		<div class="book-rating">
 			<div class="ibdb-rating">
 				<h5>IBDb RATING</h5>
-				<button>
-					<span class="review-rating"><i class="bi bi-star-fill"></i> 4<span class="max-rating">/5</span></span>
+				<button id="ibdb-rating-btn">
+					<span class="review-rating"><i class="bi bi-star-fill"></i> {{ Book.score.avg|floatformat:1 }}<span class="max-rating">/5</span></span>
 				</button>
+				<div id="ibdb-rating-modal" class="modal">
+				  <div class="modal-content">
+				    <span id="ibdb-modal-close" class="close">&times;</span>
+				    <div class="ibdb-modal">
+				    	<div class="ibdb-modal-header">
+				    		<h4>Rating</h4>
+				    		<h4 id="votes">Votes {{ Book.score.total }}</h4>
+				    	</div>
+				    	<div class="scores">
+				    		<h4>1★</h4>
+				    		<div class="score-bar-div">
+				    			<div class="score-bar">
+				    				
+				    			</div>
+				    		</div>
+				    		<h4>{{ Book.score.score_1 }}</h4>
+				    	</div>
+				    	<div class="scores">
+				    		<h4>2★</h4>
+				    		<div class="score-bar-div">
+				    			<div class="score-bar">
+				    				
+				    			</div>
+				    		</div>
+				    		<h4>{{ Book.score.score_2 }}</h4>
+				    	</div>
+				    	<div class="scores">
+				    		<h4>3★</h4>
+				    		<div class="score-bar-div">
+				    			<div class="score-bar">
+				    				
+				    			</div>
+				    		</div>
+				    		<h4>{{ Book.score.score_3 }}</h4>
+				    	</div>
+				    	<div class="scores">
+				    		<h4>4★</h4>
+				    		<div class="score-bar-div">
+				    			<div class="score-bar">
+				    				
+				    			</div>
+				    		</div>
+				    		<h4>{{ Book.score.score_4 }}</h4>
+				    	</div>
+				    	<div class="scores">
+				    		<h4>5★</h4>
+				    		<div class="score-bar-div">
+				    			<div class="score-bar">
+				    				
+				    			</div>
+				    		</div>
+				    		<h4>{{ Book.score.score_5 }}</h4>
+				    	</div>
+				    </div>
+				  </div>
+				</div>
 			</div>
 			<div class="user-rating">
 				<h5>YOUR RATING</h5>
@@ -38,7 +94,7 @@
 				</button>
 				<div id="myModal" class="modal">
 				  <div class="modal-content">
-				    <span class="close">&times;</span>
+				    <span id="user-modal-close" class="close">&times;</span>
 				    <form class="rating">
 				    	{% csrf_token %}
 						<input type="radio" name="rating" value="5" id="5"><label for="5">☆</label>
@@ -99,11 +155,6 @@
 				</div>
 				<h2>{{ review.title }}</h2>
 				<p>{{ review.text }}</p>
-				<div class="review-likes">
-					<div>
-					124 likes </i><button class="bi bi-hand-thumbs-up"></button></i><button class="bi bi-flag"></button>
-					</div>
-				</div>
 			</div>
 		{% endfor %}
 	</div>
@@ -116,4 +167,5 @@
 
 <script src="{% static 'js/rate.js' %}"></script>
 <script src="{% static 'js/book_status.js' %}"></script>
+<script src="{% static 'js/ibdb_rating.js' %}"></script>
 {% endblock %}

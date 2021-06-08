@@ -14,7 +14,7 @@
 			<li><b>Contributions</b>{{ request.user.contributions }}</li>
 			<li><b>Reviews</b>{{ reviews }}</li>
 			<li><b>Ratings</b>{{ ratings }}</li>
-			<li><b>Books<b><small>Read {{ read }}</small><small>Reading {{ reading }}</small><small>Want to read {{ want }}</small></li>
+			<li><b>Books<b><a href="{% url 'user_books' user_id 'read' %}">Read {{ read }}</a><a href="{% url 'user_books' user_id 'reading' %}">Reading {{ reading }}</a><a href="{% url 'user_books' user_id 'want_to_read' %}">Want to read {{ want }}</a></li>
 		</ul>
 	</div>
 	<div class="contributions-post">

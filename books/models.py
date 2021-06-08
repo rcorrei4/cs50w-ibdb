@@ -21,7 +21,7 @@ class AbstractBook(models.Model):
 class Book(AbstractBook):
 	book_cover = models.ImageField(upload_to="books")
 	protection = models.BooleanField(max_length=128, default=False)
-	score = models.JSONField(max_length=128)
+	score = models.JSONField(max_length=128, default=dict)
 
 	def __str__(self):
 		return str(self.title)
@@ -95,7 +95,7 @@ class Review(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	book = models.ForeignKey(Book, on_delete=models.CASCADE)
 	title = models.CharField(max_length=175)
-	text = models.CharField(max_length=500)
+	text = models.CharField(max_length=1024)
 	date = models.DateField(auto_now=True)
 	score = models.IntegerField(default=0, 
 		validators = [

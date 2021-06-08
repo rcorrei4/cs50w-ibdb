@@ -213,6 +213,7 @@ def rate_book(request):
 				rating = Rating(book=book, user=request.user, score=rating_score)
 				rating.save()
 
+			book.get_score
 			return JsonResponse({'success':'true', 'score': rating_score}, safe=False)
 
 		if request.method == "DELETE":
@@ -223,6 +224,7 @@ def rate_book(request):
 			try:
 				rating = Rating.objects.get(user=request.user, book=book)
 				rating.delete()
+				book.get_score
 				return JsonResponse({'success':'deleted'})
 			except ObjectDoesNotExist:
 				return JsonResponse({'error':'rating dont exist!'})
@@ -319,7 +321,7 @@ def edit_review(request, book_id):
 				review.save()
 				return HttpResponseRedirect(reverse("book", args=[book_id]))
 			else:
-				return render(request, "books/review.html", {
+				return render(request, "books/edit_review.html", {
 				"book": book,
 				"message": "Invalid input"
 				})
@@ -429,6 +431,7 @@ def profile(request, user_id):
 	illustration_delete_request = IllustrationDeleteRequest.objects.filter(user=user)
 
 	return render(request, "books/profile.html", {
+		"user_id": user_id,
 		"reviews": Review.objects.filter(user=request.user).count(),
 		"ratings": Rating.objects.filter(user=request.user).count(),
 		"read": user.read.count(),
@@ -438,6 +441,19 @@ def profile(request, user_id):
 		"illustration_post": illustration_post_request,
 		"illustration_delete": illustration_delete_request
 		})
+
+def user_books(request, user_id, book_list):
+	user = User.objects.get(id=user_id)
+
+	if book_list == "read" or book_list == "reading" or book_list == "want_to_read":
+		books = getattr(user, book_list).all()
+
+		return render(request, "books/search.html", {
+			"books": books
+			})
+
+	else:
+		return HttpResponseRedirect(reverse("index"))
 
 def book_status(request, book_id):
 	if request.method == "POST":
@@ -469,3 +485,8 @@ def book_status(request, book_id):
 		return JsonResponse({'success': option})
 	else:
 		return HttpResponseRedirect(reverse("index"))
+
+def get_book_score(request, book_id):
+	book = get_object_or_404(Book, id=book_id)
+
+	return JsonResponse(book.score)

@@ -19,6 +19,8 @@ urlpatterns = [
 	path('book/aprove/', views.aprove, name="aprove"),
 	path('book/aprove_illustration/', views.aprove_illustration, name="aprove_illustration"),
 	path('profile/<str:user_id>', views.profile, name="profile"),
+	path('profile/<str:user_id>/<str:book_list>', views.user_books, name="user_books"),
 	path('show_request/<str:request_id>', views.show_request, name="show_request"),
-	path('book/status/<str:book_id>', views.book_status, name="status")
+	path('book/status/<str:book_id>', views.book_status, name="status"),
+	path('book/<str:book_id>/score', views.get_book_score, name="get_book_score")
 ]

@@ -147,6 +147,35 @@
 	font-family: "Gemunu"
 }
 
+.ibdb-modal {
+	padding: 30px;
+}
+
+.ibdb-modal-header {
+	display: flex;
+}
+
+#votes {
+	margin-left: auto;
+}
+
+.score-bar-div {
+	width: 500px;
+	height: 20px;
+	margin: 0px 10px 0px 0px;
+	padding: 0;
+}
+
+.score-bar {
+	width: 100%;
+	height: 20px;
+	background-color: #0245A3;
+}
+
+.scores {
+	display: flex;
+}
+
 .want-read {
 	cursor: pointer;
 	width: 310px;

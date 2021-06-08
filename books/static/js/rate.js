@@ -1,6 +1,6 @@
 let modal = document.getElementById("myModal");
 let btn = document.getElementById("myBtn");
-let span = document.getElementsByClassName("close")[0];
+let span = document.getElementById("user-modal-close");
 let book = document.querySelector(".book-title");
 let csrf = document.getElementsByName('csrfmiddlewaretoken')
 let rateBtn = document.getElementById("rate-btn");
