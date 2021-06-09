@@ -53,9 +53,36 @@
 	</div>
 </div>
 
-<div>
-	
+<div class="last-added-books">
+	<h2>Last added books</h2>
+	<div class="swiper-container swiper3">
+		<!-- Additional required wrapper -->
+		<div class="swiper-wrapper">
+			<!-- Slides -->
+			{% for book in last_added_books %}
+				<div class="swiper-slide"><a href="{% url 'book' book.id %}"><img src="{{ book.book_cover.url }}" height="200px"></a></div>
+			{% endfor %}
+		</div>
+		<div class="swiper-button-prev"></div>
+		<div class="swiper-button-next"></div>
+	</div>
 </div>
+
+<div class="last-added-books">
+	<h2>Last added books</h2>
+	<div class="swiper-container swiper4">
+		<!-- Additional required wrapper -->
+		<div class="swiper-wrapper">
+			<!-- Slides -->
+			{% for book in best_book_ratings %}
+				<div class="swiper-slide"><a href="{% url 'book' book.id %}"><img src="{{ book.book_cover.url }}" height="200px"></a></div>
+			{% endfor %}
+		</div>
+		<div class="swiper-button-prev"></div>
+		<div class="swiper-button-next"></div>
+	</div>
+</div>
+
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script src="{% static 'js/index.js' %}"></script>
 {% endblock %}

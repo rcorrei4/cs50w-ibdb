@@ -20,6 +20,24 @@ var swiper2 = new Swiper('.swiper2', {
   allowTouchMove: false,
 });
 
+var swiper3 = new Swiper('.swiper3', {
+  slidesPerView: 7,
+  // Navigation arrows
+  navigation: {
+    nextEl: '.swiper-button-next',
+    prevEl: '.swiper-button-prev',
+  },
+});
+
+var swiper4 = new Swiper('.swiper4', {
+  slidesPerView: 7,
+  // Navigation arrows
+  navigation: {
+    nextEl: '.swiper-button-next',
+    prevEl: '.swiper-button-prev',
+  },
+});
+
 swiper.on('slideChangeTransitionEnd', function() {
 	var book = document.querySelector('.swiper-slide-active');
 

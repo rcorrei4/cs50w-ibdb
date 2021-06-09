@@ -54,7 +54,7 @@
 	height: 450px;
 }
 
-.swiper-container {
+.swiper1, .swiper2 {
   max-height: 100%;
 }
 
@@ -92,4 +92,14 @@
 .book-slider a {
 	color: #06224A;
 	font-size: 24px;
+}
+
+.last-added-books {
+	width: 90%;
+	margin: 110px auto 0px auto;
+}
+
+.swiper3 {
+	width: 100%;
+  height: 300px;
 }

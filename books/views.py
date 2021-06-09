@@ -17,8 +17,13 @@ from .forms import ReviewForm, BookForm, EditBookForm, EditBookRequestForm, Prot
 
 def index(request):
 	Books = Book.objects.all().order_by('id')
+	last_added_books = Book.objects.all().order_by('-id')[:10]
+	best_book_ratings = Book.objects.all().order_by('-score_avg')
+
 	return render(request, "books/index.html", {
-		"Books": Books
+		"Books": Books,
+		"last_added_books": last_added_books,
+		"best_book_ratings": best_book_ratings
 		})
 
 def login_view(request):

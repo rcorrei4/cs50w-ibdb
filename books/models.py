@@ -22,6 +22,7 @@ class Book(AbstractBook):
 	book_cover = models.ImageField(upload_to="books")
 	protection = models.BooleanField(max_length=128, default=False)
 	score = models.JSONField(max_length=128, default=dict)
+	score_avg = models.FloatField(max_length=32, default=None)
 
 	def __str__(self):
 		return str(self.title)
@@ -29,13 +30,14 @@ class Book(AbstractBook):
 	@property
 	def get_score(self):
 		score = dict()
-		score["avg"] = Rating.objects.filter(book=self).aggregate(Avg('score'))["score__avg"]
+		score_avg = Rating.objects.filter(book=self).aggregate(Avg('score'))
 		score["total"] = Rating.objects.filter(book=self).count()
 
 		for i in range(1, 6):
 			score["score_"+str(i)] = Rating.objects.filter(score=i).count()
 
 		self.score = score
+		self.score_avg = score_avg['score__avg']
 		self.save()
 
 class User(AbstractUser):
