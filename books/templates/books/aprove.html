@@ -13,21 +13,23 @@
 					<img src="{{ illustration.image.url }}" height="150px">
 					<form>
 						{% csrf_token %}
-						<button type="button" id="{{ book.id }}">Aprove</button>
+						<button type="button" class="aprove-btn" data-id="{{ book.id }}">Aprove</button>
+						<button type="button" class="reprove-btn">Reprove</button>
 					</form>
 				</div>
 			{% endfor %}
 		</div>
 
 		<div class="contributions">
-			<h1>Illustrations Contributions to be aproved</h1>
+			<h1>Illustrations contributions to be aproved</h1>
 			{% for illustration in illustration_post %}
 				<div class="image-contributions">
 					<a href="{% url 'book' illustration.book.id %}" target="_blank">{{ illustration.book.title }}</a>
 					<img src="{{ illustration.image.url }}" height="150px">
 					<form>
 						{% csrf_token %}
-						<button type="button" id="{{ illustration.id }}">Aprove</button>
+						<button type="button" class="aprove-btn" data-id="{{ illustration.id }}">Aprove</button>
+						<button type="button" class="reprove-btn">Reprove</button>
 					</form>
 				</div>
 			{% endfor %}
@@ -41,7 +43,8 @@
 					<img src="{{ illustration.illustration.image.url }}" height="150px">
 					<form>
 						{% csrf_token %}
-						<button type="button" id="{{ illustration.id }}">Aprove</button>
+						<button type="button" class="aprove-btn" data-id="{{ illustration.id }}">Aprove</button>
+						<button type="button" class="reprove-btn">Reprove</button>
 					</form>
 				</div>
 			{% endfor %}

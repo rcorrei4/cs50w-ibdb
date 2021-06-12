@@ -103,3 +103,48 @@
 	width: 100%;
   height: 300px;
 }
+
+.lastest-reviews {
+	width: 90%;
+	margin: 110px auto 0px auto;
+}
+
+.review {
+	width: 70%;
+	margin-bottom: 23px;
+	padding: 5px 20px 20px 20px;
+	box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.25);
+	border-radius: 8px;
+}
+
+.review p {
+	line-height: 20px;
+}
+
+.review-top {
+	display: flex;
+}
+
+.review-rating {
+	margin-left: auto;
+	margin-right: 20px;
+	align-self: center;
+	color: rgba(0, 0, 0, 80%);
+}
+
+.max-rating {
+	color: rgba(0, 0, 0, 50%);
+}
+
+.review-likes {
+	display: flex;
+}
+
+.review-likes div {
+	margin-left: auto;
+	margin-right: 20px;
+}
+
+i {
+	color: orange;
+}

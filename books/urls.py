@@ -17,6 +17,7 @@ urlpatterns = [
 	path('book/review/edit/<str:book_id>', views.edit_review, name="edit_review"),
 	path('book/protect/<str:book_id>', views.protect, name="protect"),
 	path('book/aprove/', views.aprove, name="aprove"),
+	path('book/reprove/', views.reprove, name="reprove"),
 	path('book/aprove_illustration/', views.aprove_illustration, name="aprove_illustration"),
 	path('profile/<str:user_id>', views.profile, name="profile"),
 	path('profile/<str:user_id>/<str:book_list>', views.user_books, name="user_books"),

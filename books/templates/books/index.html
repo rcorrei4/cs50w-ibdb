@@ -49,7 +49,6 @@
 				{% endfor %}
 		    </div>
 		</div>
-		<a href="#">Browse books ></a>
 	</div>
 </div>
 
@@ -69,7 +68,7 @@
 </div>
 
 <div class="last-added-books">
-	<h2>Last added books</h2>
+	<h2>Best rating books</h2>
 	<div class="swiper-container swiper4">
 		<!-- Additional required wrapper -->
 		<div class="swiper-wrapper">
@@ -81,6 +80,20 @@
 		<div class="swiper-button-prev"></div>
 		<div class="swiper-button-next"></div>
 	</div>
+</div>
+
+<div class="lastest-reviews">
+	<h2>Lastest book reviews</h2>
+	{% for review in reviews %}
+		<div class="review">
+			<div class="review-top">
+				<h4>{{ review.user.username }} - {{ review.date }} -- <a href="{% url 'book' review.book.id %}">{{ review.book.title }}</a></h4>
+				<span class="review-rating"><i class="bi bi-star-fill"></i> {{ review.score }}<span class="max-rating">/5</span></span>
+			</div>
+			<h2>{{ review.title }}</h2>
+			<p>{{ review.text }}</p>
+		</div>
+	{% endfor %}
 </div>
 
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>

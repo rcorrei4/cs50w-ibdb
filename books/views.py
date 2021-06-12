@@ -19,11 +19,13 @@ def index(request):
 	Books = Book.objects.all().order_by('id')
 	last_added_books = Book.objects.all().order_by('-id')[:10]
 	best_book_ratings = Book.objects.all().order_by('-score_avg')
+	reviews = Review.objects.all().order_by('-id')[:5]
 
 	return render(request, "books/index.html", {
 		"Books": Books,
 		"last_added_books": last_added_books,
-		"best_book_ratings": best_book_ratings
+		"best_book_ratings": best_book_ratings,
+		"reviews": reviews
 		})
 
 def login_view(request):
@@ -138,6 +140,7 @@ def contribute(request):
 			"form": BookForm(initial=initial_data)
 			})
 
+@login_required
 def edit_book(request, book_id):
 	book = get_object_or_404(Book, id=book_id)
 	if request.method == "POST":
@@ -343,6 +346,7 @@ def edit_review(request, book_id):
 			"review": review
 			})
 
+@login_required
 def protect(request, book_id):
 	if request.user.is_superuser:
 		book = get_object_or_404(Book, id=book_id)
@@ -358,6 +362,7 @@ def protect(request, book_id):
 		
 	return HttpResponseRedirect(reverse("book", args=[book_id]))
 
+@login_required
 def aprove(request):
 	if request.method == "POST":
 		user = get_object_or_404(User, username=request.user.username)
@@ -393,6 +398,7 @@ def aprove(request):
 			"illustration_delete": illustration_delete_request
 			})
 
+@login_required
 def aprove_illustration(request):
 	if request.method == "POST":
 		user = get_object_or_404(User, username=request.user.username)
@@ -422,6 +428,28 @@ def aprove_illustration(request):
 	else:
 		return HttpResponseRedirect(reverse("aprove"))
 
+@login_required
+def reprove(request):
+	if request.user.is_superuser:
+		model = data.get("model")
+		model_id = data.get("model_id")
+		
+		if model == "book":
+			book = BookRequest.objects.get(id=model_id)
+			book.delete()
+
+		if model == "illustration":
+			illustration = IllustrationPostRequest.objects.get(id=model_id)
+			illustration.delete()
+
+		if model == "remove_illustration":
+			illustration = IllustrationDeleteRequest.objects.get(id=model_id)
+			illustration.delete()
+	else:
+		return HttpResponseRedirect(reverse("index"))
+
+
+@login_required
 def show_request(request, request_id):
 	book = get_object_or_404(BookRequest, id=request_id)
 	
@@ -429,6 +457,7 @@ def show_request(request, request_id):
 		"Book": book
 		})
 
+@login_required
 def profile(request, user_id):
 	user = User.objects.get(username=request.user.username)
 	book_post_request = BookRequest.objects.filter(user=user)

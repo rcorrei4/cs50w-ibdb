@@ -26,9 +26,6 @@
 					<a href="{% url 'profile' request.user.id %}" class="nav-btn">Profile</a>
 				</li>
 				<li class="nav-btn">
-					<a href="#" class="nav-btn">Browse</a>
-				</li>
-				<li class="nav-btn">
 					<a href="{% url 'contribute' %}" class="nav-btn">Contribute</a>
 				</li>
 				{% if request.user.is_superuser %}

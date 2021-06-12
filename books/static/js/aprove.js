@@ -4,12 +4,12 @@ imageDeleteContributions = document.querySelectorAll(".delete-contributions")
 
 infoContributions.forEach(contribution => {
 	csrf = contribution.querySelector('input')
-	contribution.querySelector("button").onclick = () => {
+	contribution.querySelector(".aprove-btn").onclick = () => {
 		fetch(`/book/aprove/`, {
 			method: 'POST',
 			headers:{"X-CSRFToken": csrf.value},
 			body: JSON.stringify({
-				id: contribution.querySelector("button").id
+				id: contribution.querySelector(".aprove-btn").dataset.id
 			})
 		})
 		.then (response => response.json())
@@ -23,12 +23,12 @@ infoContributions.forEach(contribution => {
 
 imageContributions.forEach(contribution => {
 	csrf = contribution.querySelector('input')
-	contribution.querySelector("button").onclick = () => {
+	contribution.querySelector(".aprove-btn").onclick = () => {
 		fetch(`/book/aprove_illustration/`, {
 			method: 'POST',
 			headers:{"X-CSRFToken": csrf.value},
 			body: JSON.stringify({
-				id: contribution.querySelector("button").id
+				id: contribution.querySelector(".aprove-btn").dataset.id
 			})
 		})
 		.then (response => response.json())
@@ -42,12 +42,12 @@ imageContributions.forEach(contribution => {
 
 imageDeleteContributions.forEach(contribution => {
 	csrf = contribution.querySelector('input')
-	contribution.querySelector("button").onclick = () => {
+	contribution.querySelector(".aprove-btn").onclick = () => {
 		fetch(`/book/aprove_illustration/`, {
 			method: 'DELETE',
 			headers:{"X-CSRFToken": csrf.value},
 			body: JSON.stringify({
-				id: contribution.querySelector("button").id
+				id: contribution.querySelector(".aprove-btn").dataset.id
 			})
 		})
 		.then (response => response.json())
