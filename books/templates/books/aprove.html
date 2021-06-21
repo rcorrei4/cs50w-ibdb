@@ -13,8 +13,8 @@
 					<img src="{{ illustration.image.url }}" height="150px">
 					<form>
 						{% csrf_token %}
-						<button type="button" class="aprove-btn" data-id="{{ book.id }}">Aprove</button>
-						<button type="button" class="reprove-btn">Reprove</button>
+						<button type="button" class="aprove-btn" onclick="aprove({{ book.id }})">Aprove</button>
+						<button type="button" class="reprove-btn" onclick="reprove({{ illustration.id}}, 'book')">Reprove</button>
 					</form>
 				</div>
 			{% endfor %}
@@ -28,8 +28,8 @@
 					<img src="{{ illustration.image.url }}" height="150px">
 					<form>
 						{% csrf_token %}
-						<button type="button" class="aprove-btn" data-id="{{ illustration.id }}">Aprove</button>
-						<button type="button" class="reprove-btn">Reprove</button>
+						<button type="button" class="aprove-btn" onclick="aproveIllustration({{ illustration.id }})">Aprove</button>
+						<button type="button" class="reprove-btn" onclick="reprove({{ illustration.id }}, 'illustration')">Reprove</button>
 					</form>
 				</div>
 			{% endfor %}
@@ -43,8 +43,8 @@
 					<img src="{{ illustration.illustration.image.url }}" height="150px">
 					<form>
 						{% csrf_token %}
-						<button type="button" class="aprove-btn" data-id="{{ illustration.id }}">Aprove</button>
-						<button type="button" class="reprove-btn">Reprove</button>
+						<button type="button" class="aprove-btn" onclick="aproveDeleteIllustration({{ illustration.id }})">Aprove</button>
+						<button type="button" class="reprove-btn" onclick="reprove({{ illustration.id }}, 'remove_illustration')">Reprove</button>
 					</form>
 				</div>
 			{% endfor %}

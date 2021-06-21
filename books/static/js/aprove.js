@@ -1,60 +1,66 @@
-infoContributions = document.querySelectorAll(".info-contributions")
-imageContributions = document.querySelectorAll(".image-contributions")
-imageDeleteContributions = document.querySelectorAll(".delete-contributions")
+csrf = document.querySelectorAll('input')[1]
 
-infoContributions.forEach(contribution => {
-	csrf = contribution.querySelector('input')
-	contribution.querySelector(".aprove-btn").onclick = () => {
-		fetch(`/book/aprove/`, {
-			method: 'POST',
-			headers:{"X-CSRFToken": csrf.value},
-			body: JSON.stringify({
-				id: contribution.querySelector(".aprove-btn").dataset.id
-			})
+function aprove (id) {
+	fetch(`/book/aprove/`, {
+		method: 'POST',
+		headers:{"X-CSRFToken": csrf.value},
+		body: JSON.stringify({
+			id: id
 		})
-		.then (response => response.json())
-		.then (result => {
-			if (result.success) {
-				contribution.remove()
-			}
-		})
-	}
-})
+	})
+	.then (response => response.json())
+	.then (result => {
+		if (result.success) {
+			location.reload()
+		}
+	})
+}
 
-imageContributions.forEach(contribution => {
-	csrf = contribution.querySelector('input')
-	contribution.querySelector(".aprove-btn").onclick = () => {
-		fetch(`/book/aprove_illustration/`, {
-			method: 'POST',
-			headers:{"X-CSRFToken": csrf.value},
-			body: JSON.stringify({
-				id: contribution.querySelector(".aprove-btn").dataset.id
-			})
+function aproveIllustration (id) {
+	fetch(`/book/aprove_illustration/`, {
+		method: 'POST',
+		headers:{"X-CSRFToken": csrf.value},
+		body: JSON.stringify({
+			id: id
 		})
-		.then (response => response.json())
-		.then (result => {
-			if (result.success) {
-				contribution.remove()
-			}
-		})
-	}
-})
+	})
+	.then (response => response.json())
+	.then (result => {
+		if (result.success) {
+			location.reload()
+		}
+	})
+}
 
-imageDeleteContributions.forEach(contribution => {
-	csrf = contribution.querySelector('input')
-	contribution.querySelector(".aprove-btn").onclick = () => {
-		fetch(`/book/aprove_illustration/`, {
-			method: 'DELETE',
-			headers:{"X-CSRFToken": csrf.value},
-			body: JSON.stringify({
-				id: contribution.querySelector(".aprove-btn").dataset.id
-			})
+function aproveDeleteIllustration (id) {
+	fetch(`/book/aprove_illustration/`, {
+		method: 'DELETE',
+		headers:{"X-CSRFToken": csrf.value},
+		body: JSON.stringify({
+			id: id
 		})
-		.then (response => response.json())
-		.then (result => {
-			if (result.success) {
-				contribution.remove()
-			}
+	})
+	.then (response => response.json())
+	.then (result => {
+		if (result.success) {
+			location.reload()
+		}
+	})
+}
+
+function reprove (id, model) {
+	fetch(`/book/reprove/`, {
+		method: 'POST',
+		headers:{"X-CSRFToken": csrf.value},
+		body: JSON.stringify({
+			id: id,
+			model: model
 		})
-	}
-})
+	})
+	.then (response => response.json())
+	.then (result => {
+		if (result.success) {
+			location.reload()
+		}
+	})
+}

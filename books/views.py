@@ -431,20 +431,23 @@ def aprove_illustration(request):
 @login_required
 def reprove(request):
 	if request.user.is_superuser:
+		data = json.loads(request.body)
 		model = data.get("model")
-		model_id = data.get("model_id")
+		model_id = data.get("id")
 		
 		if model == "book":
-			book = BookRequest.objects.get(id=model_id)
+			book = get_object_or_404(BookRequest, id=model_id)
 			book.delete()
 
 		if model == "illustration":
-			illustration = IllustrationPostRequest.objects.get(id=model_id)
+			illustration = get_object_or_404(IllustrationPostRequest, id=model_id)
 			illustration.delete()
 
 		if model == "remove_illustration":
-			illustration = IllustrationDeleteRequest.objects.get(id=model_id)
+			illustration = get_object_or_404(IllustrationDeleteRequest, id=model_id)
 			illustration.delete()
+
+		return JsonResponse({'success':'aproved'})
 	else:
 		return HttpResponseRedirect(reverse("index"))
 
