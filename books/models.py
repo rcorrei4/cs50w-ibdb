@@ -22,7 +22,7 @@ class Book(AbstractBook):
 	book_cover = models.ImageField(upload_to="books")
 	protection = models.BooleanField(max_length=128, default=False)
 	score = models.JSONField(max_length=128, default=dict)
-	score_avg = models.FloatField(max_length=32, default=None)
+	score_avg = models.FloatField(max_length=32, null=True, blank=True)
 
 	def __str__(self):
 		return str(self.title)

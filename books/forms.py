@@ -22,7 +22,7 @@ class ReviewForm(forms.Form):
 class BookForm(forms.ModelForm):
 	class Meta:
 		model = Book
-		exclude = ["protection", "score"]
+		exclude = ["protection", "score", "score_avg"]
 
 		widgets = {
             'synopsis': forms.Textarea(),
