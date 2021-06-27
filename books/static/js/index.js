@@ -79,7 +79,8 @@ swiper.on('slideChangeTransitionEnd', function() {
 	fetch(`/book/${book.dataset.id}`)
 	.then(response => response.json())
 	.then(result => {
-		document.querySelector('#book-title').innerText = result.book.title;
+		document.querySelector('.book-title').innerText = result.book.title;
+    document.querySelector('.book-title').dataset.id = result.book.id;
 		document.querySelector('#book-author').innerText = "by "+result.book.author;
 		document.querySelector('#book-synopsis').innerText = result.book.synopsis;
     document.querySelector('#book-genre').innerText = result.book.genre;

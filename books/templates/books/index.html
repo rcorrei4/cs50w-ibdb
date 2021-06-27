@@ -6,7 +6,7 @@
 {% block body %}
 <div class="slider-content">
 	<div class="book-info">
-		<h1 id="book-title">{{ Books.first.title }}</h1> <br>
+		<h1 class="book-title" data-id="{{ Books.first.id }}">{{ Books.first.title }}</h1> <br>
 		<p id="book-author">by {{ Books.first.author }}</p>
 		<p id="book-synopsis">{{ Books.first.synopsis }}</p>
 	</div>
@@ -26,10 +26,19 @@
 
 			  <div class="swiper-button-prev"></div>
 			  <div class="swiper-button-next"></div>
-			  
+
 			  <div class="swiper-pagination"></div>
 			</div>
-		<button class="want-read">+ Want to read</button>
+
+		<form class="want-read-form">
+			{% csrf_token %}
+			<select id="want-read" name="want-read" class="want-read" onchange="bookStatus()">
+				<option value="1">Add book</option>
+				<option value="want_read" {% if want_to_read %}selected{% endif %}>Want to read {% if want_to_read %}✓{% endif %}</option>
+				<option value="reading" {% if reading %}selected{% endif %}>Currently reading {% if reading %}✓{% endif %}</option>
+				<option value="read" {% if read %}selected{% endif %}>Read {% if read %}✓{% endif %}</option>
+			</select>
+		</form>
 	</div>
 
 	<div class="book-slider">
@@ -99,4 +108,5 @@
 
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script src="{% static 'js/index.js' %}"></script>
+<script src="{% static 'js/book_status.js' %}"></script>
 {% endblock %}

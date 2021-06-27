@@ -35,10 +35,9 @@ function bookStatus () {
 					option[3].innerText = "Read ✓"	
 				}
 			}
+			if (result.error) {
+				window.location.href = "/login"
+			}
 		})
 	}
-}
-
-function wantRead () {
-	
 }

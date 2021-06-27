@@ -204,7 +204,7 @@ def edit_book(request, book_id):
 
 def get_book(request, book_id):
 	book = get_object_or_404(Book, id=book_id)
-	return JsonResponse({"book": {"title": book.title, "author": book.author,
+	return JsonResponse({"book": {"id": book.id, "title": book.title, "author": book.author,
 						 "synopsis": book.synopsis, "cover": book.book_cover.url,
 						 "genre": book.genres["genres"][0] }})
 
@@ -512,35 +512,38 @@ def user_books(request, user_id, book_list):
 		return HttpResponseRedirect(reverse("index"))
 
 def book_status(request, book_id):
-	if request.method == "POST":
-		data = json.loads(request.body)
-		option = data.get("option")
+	if request.user.is_authenticated:
+		if request.method == "POST":
+			data = json.loads(request.body)
+			option = data.get("option")
 
-		book = get_object_or_404(Book, id=book_id)
-		user = User.objects.get(username=request.user.username)
+			book = get_object_or_404(Book, id=book_id)
+			user = User.objects.get(username=request.user.username)
 
-		if User.objects.filter(username=user.username, read=book).exists():
-			user.read.remove(book)
+			if User.objects.filter(username=user.username, read=book).exists():
+				user.read.remove(book)
 
-		if User.objects.filter(username=user.username, reading=book).exists():
-			user.reading.remove(book)
+			if User.objects.filter(username=user.username, reading=book).exists():
+				user.reading.remove(book)
 
-		if User.objects.filter(username=user.username, want_to_read=book).exists():
-			user.want_to_read.remove(book)
+			if User.objects.filter(username=user.username, want_to_read=book).exists():
+				user.want_to_read.remove(book)
 
-		if option == "want_read":
-			user.want_to_read.add(book)
+			if option == "want_read":
+				user.want_to_read.add(book)
 
-		if option == "reading":
-			user.reading.add(book)
+			if option == "reading":
+				user.reading.add(book)
 
-		if option == "read":
-			user.read.add(book)
+			if option == "read":
+				user.read.add(book)
 
-		user.save()
-		return JsonResponse({'success': option})
+			user.save()
+			return JsonResponse({'success': option})
+		else:
+			return HttpResponseRedirect(reverse("index"))
 	else:
-		return HttpResponseRedirect(reverse("index"))
+		return JsonResponse({'error': "login"})
 
 def get_book_score(request, book_id):
 	book = get_object_or_404(Book, id=book_id)

@@ -1,5 +1,6 @@
 .book-presentation {
-	width: 880px;
+	width: 85%;
+	max-width: 900px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -7,8 +8,14 @@
 	margin-top: 25px;
 }
 
-.book-presentation img {
+.book-img {
+	width: 1100px;
 	margin-right: 50px;
+}
+
+.book-presentation img {
+	max-width: 100%;
+	height: auto;
 }
 
 .book-presentation h1 {
@@ -191,7 +198,7 @@
 
 .book-info {
 	max-width: 840px;
-	margin: 60px 0px 0px 78px;
+	margin: 60px 60px 0px 78px;
 }
 
 h3 {
@@ -310,4 +317,19 @@ h3 a:hover {
   overflow: auto;
   background-color: rgb(0,0,0);
   background-color: rgba(0,0,0,0.4);
+}
+
+@media screen and (max-width: 799px) {
+	.book-presentation h1 {
+		font-size: 24px;
+	}
+
+	.book-presentation h4 {
+		font-size: 14px;
+	}
+
+	.book-presentation p {
+		font-size: 14px;
+		line-height: 14px;
+	}
 }
