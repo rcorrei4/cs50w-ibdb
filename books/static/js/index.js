@@ -1,10 +1,11 @@
 var swiper = new Swiper('.swiper1', {
-  // Optional parameters
   loop: true,
   preventClicks: false,
   preventClicksPropagation: false,
 
-  // Navigation arrows
+  pagination: {
+    el: '.swiper-pagination',
+  },
   navigation: {
     nextEl: '.swiper-button-next',
     prevEl: '.swiper-button-prev',
@@ -21,21 +22,55 @@ var swiper2 = new Swiper('.swiper2', {
 });
 
 var swiper3 = new Swiper('.swiper3', {
-  slidesPerView: 7,
+  slidesPerView: 2,
   // Navigation arrows
   navigation: {
     nextEl: '.swiper-button-next',
     prevEl: '.swiper-button-prev',
   },
+  breakpoints: {
+    1082: {
+      slidesPerView: 7
+    },
+    911: {
+      slidesPerView: 6
+    },
+    766: {
+      slidesPerView: 5
+    },
+    612: {
+      slidesPerView: 4
+    },
+    452: {
+      slidesPerView: 3
+    },
+  }
 });
 
 var swiper4 = new Swiper('.swiper4', {
-  slidesPerView: 7,
+  slidesPerView: 2,
   // Navigation arrows
   navigation: {
     nextEl: '.swiper-button-next',
     prevEl: '.swiper-button-prev',
   },
+  breakpoints: {
+    1082: {
+      slidesPerView: 7
+    },
+    911: {
+      slidesPerView: 6
+    },
+    766: {
+      slidesPerView: 5
+    },
+    612: {
+      slidesPerView: 4
+    },
+    452: {
+      slidesPerView: 3
+    },
+  }
 });
 
 swiper.on('slideChangeTransitionEnd', function() {

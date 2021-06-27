@@ -26,7 +26,8 @@
 
 			  <div class="swiper-button-prev"></div>
 			  <div class="swiper-button-next"></div>
-
+			  
+			  <div class="swiper-pagination"></div>
 			</div>
 		<button class="want-read">+ Want to read</button>
 	</div>
@@ -52,7 +53,7 @@
 	</div>
 </div>
 
-<div class="last-added-books">
+<div class="book-list-slider">
 	<h2>Last added books</h2>
 	<div class="swiper-container swiper3">
 		<!-- Additional required wrapper -->
@@ -67,7 +68,7 @@
 	</div>
 </div>
 
-<div class="last-added-books">
+<div class="book-list-slider">
 	<h2>Best rating books</h2>
 	<div class="swiper-container swiper4">
 		<!-- Additional required wrapper -->
@@ -82,8 +83,8 @@
 	</div>
 </div>
 
-<div class="lastest-reviews">
-	<h2>Lastest book reviews</h2>
+<div class="latest-reviews">
+	<h2>Latest book reviews</h2>
 	{% for review in reviews %}
 		<div class="review">
 			<div class="review-top">

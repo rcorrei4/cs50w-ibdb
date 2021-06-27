@@ -17,7 +17,7 @@ from .models import Book, BookRequest,Rating, Review, Illustration, Illustration
 from .forms import ReviewForm, BookForm, EditBookForm, EditBookRequestForm, ProtectionForm
 
 def index(request):
-	Books = Book.objects.all().order_by('id')
+	Books = Book.objects.all().order_by('id')[:10]
 	last_added_books = Book.objects.all().order_by('-id')[:10]
 	best_book_ratings = Book.objects.all().order_by('-score_avg')[:10]
 	reviews = Review.objects.all().order_by('-id')[:5]

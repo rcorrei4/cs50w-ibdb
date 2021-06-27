@@ -2,11 +2,12 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	margin: 5px 29px 23px 30px;
+	margin: 20px 29px 23px 30px;
 }
 
 .book-info {
 	width: 450px;
+	height: 540px;
 	text-align: center;
 	font-family: 'Gemunu';
 	font-size: 24px;
@@ -20,17 +21,16 @@
 
 .book-img {
 	margin-right: 22px;
-	width: 330px;
+	width: 300px;
 }
 
 .book-img h4{
-	display: flex;
-	align-items: center;
-	justify-content: center;
 	border-radius: 4px;
-	width: 111px;
+	width: 50%;
 	height: 31px;
-	margin: 0px 0px 4px 100px;
+	margin: 0 auto;
+	margin-bottom: 5px;
+	text-align: center;
 	background-color: rgba(2, 69, 163, 37%);
 	color: white;
 	font-weight: bold;
@@ -39,7 +39,7 @@
 
 .want-read {
 	cursor: pointer;
-	width: 310px;
+	width: 300px;
 	height: 50px;
 	border-radius: 4px;
 	background-color: #0245A3;
@@ -54,17 +54,32 @@
 	height: 450px;
 }
 
+.swiper1 {
+	width: 300px;
+}
+
+.swiper-pagination {
+	display: none;
+}
+
 .swiper1, .swiper2 {
   max-height: 100%;
 }
 
+.swiper-button-next, .swiper-button-prev {
+	border-radius: 5px;
+	font-size: 10px;
+	background-color: #ebebeb;
+	padding: 5px;
+}
+
 .book-slider-box {
 	display: flex;
-	border: 3px solid rgba(0, 0, 0, 20%);
-	border-radius: 6px;
+	padding: 10px;
 	width: 330px;
 	height: 130px;
 	margin-bottom: 6px;
+	border-bottom: 1px solid gray;
 }
 
 .book-slider-img {
@@ -94,17 +109,17 @@
 	font-size: 24px;
 }
 
-.last-added-books {
+.book-list-slider {
 	width: 90%;
-	margin: 110px auto 0px auto;
+	margin: 0 auto 0px auto;
 }
 
 .swiper3 {
 	width: 100%;
-  height: 300px;
+  height: 200px;
 }
 
-.lastest-reviews {
+.latest-reviews {
 	width: 90%;
 	margin: 110px auto 0px auto;
 }
@@ -147,4 +162,46 @@
 
 i {
 	color: orange;
+}
+
+
+@media screen and (max-width: 1269px) {
+	.book-slider {
+		display: none;
+	}
+}
+
+@media screen and (max-width:  849px) {
+	.book-info {
+		font-size: 20px;
+	}
+}
+
+@media screen and (max-width: 697px) {
+	.book-info {
+		font-size: 18px;
+	}
+
+	#book-title {
+		font-size: 24px;
+	}
+
+	.review {
+		width: 90%;
+	}
+}
+
+@media screen and (max-width: 639px) {
+	.book-info, .swiper-button-prev, .swiper-button-next {
+		display: none;
+	}
+
+	.swiper1 {
+		height: 430px;
+	}
+
+	.swiper-pagination {
+		display: block;
+		margin-top: 20px;
+	}
 }
