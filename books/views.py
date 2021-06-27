@@ -10,6 +10,7 @@ from django.db.models import Q, Avg
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.urls import reverse
 from django.core.exceptions import ObjectDoesNotExist
+from django.core.paginator import Paginator
 
 
 from .models import Book, BookRequest,Rating, Review, Illustration, IllustrationPostRequest, IllustrationDeleteRequest, User
@@ -197,9 +198,10 @@ def get_book(request, book_id):
 def search(request):
 	entry_search = request.GET['q']
 	books = Book.objects.filter(Q(title__icontains=entry_search) | Q(author__icontains=entry_search) | Q(isbn__icontains=entry_search) | Q(genres__icontains=entry_search) | Q(original_title__icontains=entry_search) | Q(characters__icontains=entry_search) | Q(keywords__icontains=entry_search))
+	paginator_books = Paginator(books, 24)
 
 	return render(request, "books/search.html", {
-		"books": books
+		"books_paginator": paginator
 		})
 
 def rate_book(request):

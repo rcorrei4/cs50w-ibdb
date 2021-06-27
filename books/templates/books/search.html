@@ -5,7 +5,7 @@
 
 {% block body %}
 <div class="search-result">
-	{% for book in books %}
+	{% for book in books_paginator.object_list %}
 		<div class="book-card">
 			<img src="{{ book.book_cover.url }}" width="128px" height="183px">
 			<h4>{{ book.title|safe|truncatechars:30 }}</h4>
