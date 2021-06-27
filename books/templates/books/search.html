@@ -5,12 +5,30 @@
 
 {% block body %}
 <div class="search-result">
-	{% for book in books_paginator.object_list %}
+	{% for book in page_obj.object_list %}
 		<div class="book-card">
 			<img src="{{ book.book_cover.url }}" width="128px" height="183px">
 			<h4>{{ book.title|safe|truncatechars:30 }}</h4>
 			<h5>{{ book.author }}</h5>
 		</div>
 	{% endfor %}
+</div>
+
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?q={{ entry_search }}&page=1">&laquo; first</a>
+            <a href="?q={{ entry_search }}&page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?q={{ entry_search }}&page={{ page_obj.next_page_number }}">next</a>
+            <a href="?q={{ entry_search }}&page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
 </div>
 {% endblock %}

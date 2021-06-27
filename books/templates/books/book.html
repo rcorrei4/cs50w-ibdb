@@ -157,6 +157,7 @@
 				<p>{{ review.text }}</p>
 			</div>
 		{% endfor %}
+		<a href="{% url 'book_reviews' Book.id %}?page=1">See all reviews</a>
 	</div>
 
 	<div class="contribute">

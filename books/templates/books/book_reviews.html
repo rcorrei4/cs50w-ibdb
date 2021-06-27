@@ -1,0 +1,41 @@
+{% extends 'books/layout.html' %}
+{% load static %}
+
+{% block css %}<link rel="stylesheet" href="{% static 'css/book.css' %}">{% endblock %}
+
+{% block body %}
+<div class="book-reviews">
+	<h3>Reviews</h3>
+	{% for review in page_obj %}
+		<div class="review">
+			<div class="review-top">
+				<h4>{{ review.user.username }} - {{ review.date }}</h4>
+				<span class="review-rating"><i class="bi bi-star-fill"></i> {{ review.score }}<span class="max-rating">/5</span></span>
+				{% if request.user == review.user %}
+					<a class="bi bi-pencil" href="{% url 'edit_review' book_id %}"></a>
+				{% endif %}
+			</div>
+			<h2>{{ review.title }}</h2>
+			<p>{{ review.text }}</p>
+		</div>
+	{% endfor %}
+</div>
+
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="&page=1">&laquo; first</a>
+            <a href="&page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="&page={{ page_obj.next_page_number }}">next</a>
+            <a href="&page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+{% endblock %}

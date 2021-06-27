@@ -19,7 +19,7 @@ from .forms import ReviewForm, BookForm, EditBookForm, EditBookRequestForm, Prot
 def index(request):
 	Books = Book.objects.all().order_by('id')
 	last_added_books = Book.objects.all().order_by('-id')[:10]
-	best_book_ratings = Book.objects.all().order_by('-score_avg')
+	best_book_ratings = Book.objects.all().order_by('-score_avg')[:10]
 	reviews = Review.objects.all().order_by('-id')[:5]
 
 	return render(request, "books/index.html", {
@@ -82,7 +82,7 @@ def book(request, book_id):
 
 	# Get book illustrations and reviews objects
 	illustrations = Illustration.objects.filter(book=book)
-	reviews = Review.objects.filter(book=book)
+	reviews = Review.objects.filter(book=book)[:5]
 
 	read = False
 	reading = False
@@ -114,6 +114,19 @@ def book(request, book_id):
 		return render(request, "books/book.html", context)
 	else:
 		return render(request, "books/book.html", context)
+
+def show_reviews(request, book_id):
+	book = get_object_or_404(Book, id=book_id)
+	reviews = Review.objects.filter(book=book)
+
+	page_number = request.GET.get("page")
+	paginator = Paginator(reviews, 10)
+	page_obj = paginator.get_page(page_number)
+
+	return render(request, "books/book_reviews.html", {
+		"page_obj": page_obj,
+		"book_id": book.id
+		})
 
 @login_required
 def contribute(request):
@@ -196,12 +209,16 @@ def get_book(request, book_id):
 						 "genre": book.genres["genres"][0] }})
 
 def search(request):
-	entry_search = request.GET['q']
+	entry_search = request.GET.get('q')
 	books = Book.objects.filter(Q(title__icontains=entry_search) | Q(author__icontains=entry_search) | Q(isbn__icontains=entry_search) | Q(genres__icontains=entry_search) | Q(original_title__icontains=entry_search) | Q(characters__icontains=entry_search) | Q(keywords__icontains=entry_search))
-	paginator_books = Paginator(books, 24)
+	paginator = Paginator(books, 6)
+	page_number = request.GET.get("page")
+
+	page_obj = paginator.get_page(page_number)
 
 	return render(request, "books/search.html", {
-		"books_paginator": paginator
+		"page_obj": page_obj,
+		"entry_search": entry_search
 		})
 
 def rate_book(request):

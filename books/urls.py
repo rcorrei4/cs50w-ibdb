@@ -23,5 +23,6 @@ urlpatterns = [
 	path('profile/<str:user_id>/<str:book_list>', views.user_books, name="user_books"),
 	path('show_request/<str:request_id>', views.show_request, name="show_request"),
 	path('book/status/<str:book_id>', views.book_status, name="status"),
-	path('book/<str:book_id>/score', views.get_book_score, name="get_book_score")
+	path('book/<str:book_id>/score', views.get_book_score, name="get_book_score"),
+	path(r'book/show/reviews/<str:book_id>/', views.show_reviews, name="book_reviews")
 ]

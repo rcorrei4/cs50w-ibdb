@@ -37,6 +37,7 @@
 
 			<form class="search-form" action="{% url 'search' %}" method="get">
 				<input class="search-input" type="text" name="q" placeholder="Search IBDb">
+				<input type="text" name="page" value="1" style="display: none;">
 				<button class="search-btn" type="submit">
 					<i class="bi bi-search"></i>
 				</button>
