@@ -241,8 +241,18 @@ h3 {
 	margin-top: 12px;
 }
 
+.book-details a {
+	text-decoration: none;
+	color: blue;
+}
+
 .book-details b {
 	margin-right: 12px;
+}
+
+.book-reviews a {
+	text-decoration: none;
+	color: blue;
 }
 
 .review {
@@ -285,15 +295,6 @@ h3 a:hover {
 	color: rgba(0, 0, 0, 50%);
 }
 
-.review-likes {
-	display: flex;
-}
-
-.review-likes div {
-	margin-left: auto;
-	margin-right: 20px;
-}
-
 .contribute a {
 	border: none;
 	background-color: #0245A3;
@@ -325,11 +326,43 @@ h3 a:hover {
 	}
 
 	.book-presentation h4 {
-		font-size: 14px;
+		font-size: 18px;
 	}
 
 	.book-presentation p {
-		font-size: 14px;
+		font-size: 16px;
 		line-height: 14px;
+	}
+}
+
+@media screen and (max-width: 629px) {
+	.book-presentation {
+		display: block;
+		margin: 10px 0px 10px 40px;
+	}
+
+	.book-img {
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.book-presentation img {
+		width: 300px;
+		margin: 0 auto;
+	}
+
+	.book-presentation h1 {
+		font-size: 26px;
+	}
+
+	.book-presentation p {
+		font-size: 18px;
+		line-height: 18px;
+	}
+
+	.book-info {
+		margin: 20px 20px 0px 20px;
 	}
 }

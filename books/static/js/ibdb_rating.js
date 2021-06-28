@@ -17,8 +17,6 @@ fetch(`/book/${id}/score`, {
 })
 .then (response => response.json())
 .then (result => {
-    console.log(result.score_5)
-
     for (i = 4; i >= 0; i--) {
       width = (result["score_"+(i+1)] * 100) / result.total
       scoreBars[i].style.width = `${width}%`;

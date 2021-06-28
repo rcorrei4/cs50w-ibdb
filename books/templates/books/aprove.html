@@ -1,50 +1,47 @@
 {% extends 'books/layout.html' %}
 {% load static %}
 
-{% block css %}<link rel="stylesheet" href="">{% endblock %}
+{% block css %}<link rel="stylesheet" href="{% static 'css/aprove.css' %}">{% endblock %}
 
 {% block body %}
 	<div class="contributions-post">
+		<h1>Books contributions to be aproved</h1>
 		<div class="contributions">
-			<h1>Books contributions to be aproved</h1>
 			{% for book in book_post %}
 				<div class="info-contributions">
 					<a href="{% url 'show_request' book.id %}" target="_blank">{{ book.title }}</a>
-					<img src="{{ illustration.image.url }}" height="150px">
 					<form>
 						{% csrf_token %}
-						<button type="button" class="aprove-btn" onclick="aprove({{ book.id }})">Aprove</button>
-						<button type="button" class="reprove-btn" onclick="reprove({{ illustration.id}}, 'book')">Reprove</button>
+						<button type="button" class="aprove-btn" onclick="aprove({{ book.id }})" title="Aprove"><i class="bi-check-circle-fill"></i></button>
+						<button type="button" class="reprove-btn" onclick="reprove({{book.id}})" title="Reprove"><i class="bi bi-x-circle-fill"></i></button>
 					</form>
 				</div>
 			{% endfor %}
 		</div>
 
+		<h1>Illustrations contributions to be aproved</h1>
 		<div class="contributions">
-			<h1>Illustrations contributions to be aproved</h1>
 			{% for illustration in illustration_post %}
 				<div class="image-contributions">
 					<a href="{% url 'book' illustration.book.id %}" target="_blank">{{ illustration.book.title }}</a>
 					<img src="{{ illustration.image.url }}" height="150px">
 					<form>
-						{% csrf_token %}
-						<button type="button" class="aprove-btn" onclick="aproveIllustration({{ illustration.id }})">Aprove</button>
-						<button type="button" class="reprove-btn" onclick="reprove({{ illustration.id }}, 'illustration')">Reprove</button>
+						<button type="button" class="aprove-btn" onclick="aproveIllustration({{ illustration.id }})" title="Aprove"><i class="bi bi-check-circle-fill"></button>
+						<button type="button" class="reprove-btn" onclick="reproveIllustration({{ illustration.id }})" title="Reprove"><i class="bi bi-x-circle-fill"></button>
 					</form>
 				</div>
 			{% endfor %}
 		</div>
 
+		<h1>Illustrations removal to be aproved</h1>
 		<div class="contributions">
-			<h1>Illustrations removal to be aproved</h1>
 			{% for illustration in illustration_delete %}
 				<div class="image-contributions delete-contributions">
 					<a href="{% url 'book' illustration.illustration.book.id %}" target="_blank">{{ illustration.book.title }}</a>
 					<img src="{{ illustration.illustration.image.url }}" height="150px">
 					<form>
-						{% csrf_token %}
-						<button type="button" class="aprove-btn" onclick="aproveDeleteIllustration({{ illustration.id }})">Aprove</button>
-						<button type="button" class="reprove-btn" onclick="reprove({{ illustration.id }}, 'remove_illustration')">Reprove</button>
+						<button type="button" class="aprove-btn" onclick="aproveDeleteIllustration({{ illustration.id }})" title="Aprove"><i class="bi bi-check-circle-fill"></button>
+						<button type="button" class="reprove-btn" onclick="reproveIllustrationDelete({{ illustration.id }})" title="Reprove"><i class="bi bi-x-circle-fill"></button>
 					</form>
 				</div>
 			{% endfor %}

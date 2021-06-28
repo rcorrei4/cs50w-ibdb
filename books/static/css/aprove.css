@@ -1,0 +1,33 @@
+.contributions-post {
+	margin: 20px 20px 20px 20px;
+}
+
+.contributions-post a {
+	color: blue;
+	text-decoration: none;
+}
+
+.contributions {
+	display: flex;
+	width: 60%;
+}
+
+.info-contributions, .image-contributions {
+	margin-right: 10px;
+}
+
+.aprove-btn {
+	cursor: pointer;
+	background-color: white;
+	color: green;
+	border: none;
+	outline: none;
+}
+
+.reprove-btn {
+	cursor: pointer;
+	background-color: white;
+	color: red;
+	border: none;
+	outline: none;
+}

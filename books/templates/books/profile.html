@@ -1,50 +1,56 @@
 {% extends 'books/layout.html' %}
 {% load static %}
 
-{% block css %}<link rel="stylesheet" href="">{% endblock %}
+{% block css %}<link rel="stylesheet" href="{% static 'css/profile.css' %}">{% endblock %}
 
 {% block body %}
-<div>
-	<div class="user">
-		<img src="{% static 'images/profile-image.png' %}" width="200px">
-		<h1>{{ request.user.username }}</h1>
-	</div>
+<div class="user-content">
 	<div class="user-info">
-		<ul>
-			<li><b>Contributions</b>{{ request.user.contributions }}</li>
-			<li><b>Reviews</b>{{ reviews }}</li>
-			<li><b>Ratings</b>{{ ratings }}</li>
-			<li><b>Books<b><a href="{% url 'user_books' user_id 'read' %}">Read {{ read }}</a><a href="{% url 'user_books' user_id 'reading' %}">Reading {{ reading }}</a><a href="{% url 'user_books' user_id 'want_to_read' %}">Want to read {{ want }}</a></li>
-		</ul>
+		<img src="{% static 'images/profile-image.png' %}" width="200px">
+		<div class="text">
+			<h1>{{ request.user.username }}</h1>
+			<ul class="user-books">
+				<li><b>Contributions</b> {{ request.user.contributions }}</li>
+				<li><b>Reviews</b> {{ reviews }}</li>
+				<li><b>Ratings</b> {{ ratings }}</li>
+				<li><b>Books</b> Read {{ read }} • Reading {{ reading }} • Want to read {{ want }}</li>
+			</ul>
+		</div>
 	</div>
 	<div class="contributions-post">
 		<div>
 			<h1>Books contributions to be aproved</h1>
-			{% for book in book_post %}
-				<div>
-					<a href="{% url 'book' book.id %}">{{ book.title }}</a>
-					<img src="{{ illustration.image.url }}" height="150px">
-				</div>
-			{% endfor %}
+			<ul>
+				{% for book in book_post %}
+					<li>
+						<a href="{% url 'book' book.id %}">{{ book.title }}</a>
+						<img src="{{ illustration.image.url }}" height="150px">
+					</li>
+				{% endfor %}
+			<ul>
 		</div>
 
 		<div>
 			<h1>Illustrations Contributions to be aproved</h1>
-			{% for illustration in illustration_post %}
-				<div>
-					<a href="{% url 'book' illustration.book.id %}">{{ illustration.book.title }}</a>
-					<img src="{{ illustration.image.url }}" height="150px">
-				</div>
-			{% endfor %}
+			<ul>
+				{% for illustration in illustration_post %}
+					<div>
+						<a href="{% url 'book' illustration.book.id %}">{{ illustration.book.title }}</a>
+						<img src="{{ illustration.image.url }}" height="150px">
+					</div>
+				{% endfor %}
+			</ul>
 		</div>
 
 		<div>
-			{% for illustration in illustration_delete %}
-				<div>
-					<a href="{% url 'book' illustration.illustration.book.id %}">{{ illustration.book.title }}</a>
-					<img src="{{ illustration.illustration.book.url }}" height="150px">
-				</div>
-			{% endfor %}
+			<ul>
+				{% for illustration in illustration_delete %}
+					<div>
+						<a href="{% url 'book' illustration.illustration.book.id %}">{{ illustration.book.title }}</a>
+						<img src="{{ illustration.illustration.book.url }}" height="150px">
+					</div>
+				{% endfor %}
+			</ul>
 		</div>
 	</div>
 </div>

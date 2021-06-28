@@ -1,0 +1,48 @@
+.user-content {
+	width: 456px;
+	margin: 0 auto;
+}
+
+.user-info {
+	display: flex;
+}
+
+.user-books {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+}
+
+.contributions-post ul {
+	width: 60%;
+	list-style-type: none;
+	display: flex;
+}
+
+.contributions-post li {
+	margin-right: 5px;
+}
+
+.contributions-post a {
+	color: blue;
+	text-decoration: none;
+}
+
+@media screen and (max-width: 527px){
+	.user-content {
+		margin: 10px 20px 10px 20px;
+	}
+
+	.user-info {
+		display: inline-block;
+		font-size: 4vw;
+	}
+
+	.contributions-post {
+		font-size: 3vw;
+	}
+
+	img {
+		display: none;
+	}
+}

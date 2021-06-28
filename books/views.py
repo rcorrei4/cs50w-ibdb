@@ -498,19 +498,6 @@ def profile(request, user_id):
 		"illustration_delete": illustration_delete_request
 		})
 
-def user_books(request, user_id, book_list):
-	user = User.objects.get(id=user_id)
-
-	if book_list == "read" or book_list == "reading" or book_list == "want_to_read":
-		books = getattr(user, book_list).all()
-
-		return render(request, "books/search.html", {
-			"books": books
-			})
-
-	else:
-		return HttpResponseRedirect(reverse("index"))
-
 def book_status(request, book_id):
 	if request.user.is_authenticated:
 		if request.method == "POST":

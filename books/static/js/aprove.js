@@ -1,4 +1,4 @@
-csrf = document.querySelectorAll('input')[1]
+csrf = document.querySelectorAll('input')[2]
 
 function aprove (id) {
 	fetch(`/book/aprove/`, {
@@ -48,7 +48,19 @@ function aproveDeleteIllustration (id) {
 	})
 }
 
-function reprove (id, model) {
+function reprove (id) {
+	reproveFetch(id, 'book');
+}
+
+function reproveIllustration (id) {
+	reproveFetch(id, 'illustration');
+}
+
+function reproveIllustrationDelete (id) {
+	reproveFetch(id, 'remove_illustration');
+}
+
+function reproveFetch (id, model) {
 	fetch(`/book/reprove/`, {
 		method: 'POST',
 		headers:{"X-CSRFToken": csrf.value},
