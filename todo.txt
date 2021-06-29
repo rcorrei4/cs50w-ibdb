@@ -1,12 +1,10 @@
 1. Homepage
 	- Navbar [done]
-	- Top books
-	- New books
-	- Top authors
+	- Top books [done]
+	- New books [done]
 
 2. Sign Page
 	- Login/Register [done]
-	- Remember me checkbox
 
 3. Book page
 	- Details
@@ -17,28 +15,19 @@
 		- Questions [done]
 		- Ilustrations [done]
 		- Keywords [done]
-		- Clicking on Keywords, Genres or Characters will make a search on ibdb
+		- Clicking on Keywords, Genres or Characters will make a search on ibdb [done]
 
 	- Rating [done]
 		- Clear rate [done]
-		- Rate details
+		- Rate details [done]
 
 	- Reviews [done]
 	- Edit book page [done]
 
-4. Search book
-	- filter
-	- book, author, rating and want to read
+4. Search book [done]
 
 5. Add book page [done]
-	- Limit 5/day
 
-6. Protection policy [Wikipedia idea]
-	- No protection
-	- Pending changes protection
-	- Semi protection
-	- Extended protection
-	- Template protection
-	- Full protection
-	- Others
-		- Book Post protection
+6. Protection policy [done]
+	- No protection [done]
+	- Full protection [done]

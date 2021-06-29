@@ -284,6 +284,10 @@ h3 a:hover {
 	display: flex;
 }
 
+.review-top .bi-pencil {
+	margin-top: 17px;
+}
+
 .review-rating {
 	margin-left: auto;
 	margin-right: 20px;

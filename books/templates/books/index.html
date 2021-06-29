@@ -63,12 +63,12 @@
 </div>
 
 <div class="book-list-slider">
-	<h2>Last added books</h2>
+	<h2>Latest added books</h2>
 	<div class="swiper-container swiper3">
 		<!-- Additional required wrapper -->
 		<div class="swiper-wrapper">
 			<!-- Slides -->
-			{% for book in last_added_books %}
+			{% for book in latest_added_books %}
 				<div class="swiper-slide"><a href="{% url 'book' book.id %}"><img src="{{ book.book_cover.url }}" height="200px"></a></div>
 			{% endfor %}
 		</div>
