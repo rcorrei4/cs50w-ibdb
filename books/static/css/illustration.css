@@ -9,17 +9,14 @@
 
 .image-box {
 	position: relative;
-	width: 16%;
 	margin-right: 10px;
 }
 
 .image-box img {
 	max-width: 300px;
-	width: 100%;
 }
 
 .image-box .buttons {
-	display: none;
 	position: absolute;
 	top: 50%;
 	left: 45%;
@@ -48,4 +45,26 @@ label {
 	background-color: #06224A;
 	padding: 10px;
 	cursor: pointer;
+}
+
+.saveBtn {
+	background-color: #0245A3;
+	color: white;
+	outline: none;
+	border: none;
+	padding: 8px;
+	border-radius: 5px;
+	font-family: 'Gemunu';
+	font-weight: bold;
+}
+
+.bi-plus-circle {
+	background-color: #0245A3;
+	color: white;
+	outline: none;
+	border: none;
+	padding: 8px;
+	border-radius: 5px;
+	font-family: 'Gemunu';
+	font-weight: bold;
 }

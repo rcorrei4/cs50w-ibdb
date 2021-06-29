@@ -5,11 +5,9 @@ document.addEventListener('DOMContentLoaded' , function () {
 
 		searchBtn = document.querySelector('search-btn-responsive');
 		loginBtn = document.querySelector('.login-btn');
-
-		container.appendChild(document.querySelector('search-btn-responsive'));
 		container.appendChild(loginBtn);
 
-		document.body.appendChild(container);
+		document.body.querySelector(".navbar").appendChild(container);
 	}
 })
 

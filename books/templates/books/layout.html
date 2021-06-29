@@ -50,12 +50,15 @@
 				<button class="search-btn-responsive" type="submit" onclick="searchControl()">
 						<i class="bi bi-search"></i>
 				</button>
-
-				<a class="login-btn" href="{% url 'login' %}">Log in</a>
+				{% if user.is_authenticated %}
+					<a class="login-btn btn-resposive" href="{% url 'logout' %}">Logout</a>
+				{% else %}
+					<a class="login-btn btn-resposive" href="{% url 'login' %}">Log in</a>
+				{% endif %}
 			</div>
 
 			{% if user.is_authenticated %}
-				<a class="login-btn" href="{% url 'logout' %}">Logout</a>
+				<a class="login-btn logout-btn" href="{% url 'logout' %}">Logout</a>
 			{% else %}
 				<a id="login" class="login-btn" href="{% url 'login' %}">Log in</a>
 				<a id="register-btn" class="login-btn" href="{% url 'register' %}">Register</a>

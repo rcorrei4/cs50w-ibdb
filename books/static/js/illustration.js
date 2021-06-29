@@ -38,19 +38,14 @@ function changeImage () {
 function eventHandler () {
 	imageBox = document.querySelectorAll('.image-box');
 	imageBox.forEach(box => {
-		box.onmouseover = () => {
-			box.querySelector('.buttons').style.display = "flex";
-		}
-		box.onmouseout = () => {
-			box.querySelector('.buttons').style.display = "none";
-		}
 
 		let deleteBtn = box.querySelectorAll('button');
 
 		deleteBtn.forEach(btn => {
 			btn.onclick = () => {
-				imageBox = document.querySelectorAll('.image-box');
-				if (imageBox.length == 1) {
+				imageBox = document.querySelectorAll('.image-box-input');
+				console.log(btn.parentNode.parentNode.className == "image-box image-box-input")
+				if (imageBox.length == 1 && btn.parentNode.parentNode.className == "image-box image-box-input") {
 				} else {
 					deleteIllu.push(btn.id)
 					btn.parentNode.parentNode.remove()

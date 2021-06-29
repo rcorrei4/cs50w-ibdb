@@ -1,19 +1,5 @@
 .contributions-post {
-	margin: 20px 20px 20px 20px;
-}
-
-.contributions-post a {
-	color: blue;
-	text-decoration: none;
-}
-
-.contributions {
-	display: flex;
-	width: 60%;
-}
-
-.info-contributions, .image-contributions {
-	margin-right: 10px;
+	margin: 10px 30px 10px 30px;
 }
 
 .aprove-btn {
@@ -30,4 +16,21 @@
 	color: red;
 	border: none;
 	outline: none;
+}
+
+.contributions {
+	display: inline-flex;
+	width: 90%;
+	text-align: center;
+	flex-wrap: wrap;
+}
+
+.image-contributions {
+	margin-right: 10px;
+	display: grid;
+}
+
+a {
+	text-decoration: none;
+	color: blue;
 }

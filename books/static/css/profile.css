@@ -19,6 +19,10 @@
 	display: flex;
 }
 
+.user-content {
+	margin: 10px 40px 10px 40px;
+}
+
 .contributions-post li {
 	margin-right: 5px;
 }
@@ -26,6 +30,18 @@
 .contributions-post a {
 	color: blue;
 	text-decoration: none;
+}
+
+.contributions-post {
+	display: grid;
+	margin-right: 10px;
+}
+
+.contributions-post-illustrations {
+	display: flex;
+	text-align: center;
+	flex-wrap: wrap;
+	width: 90%;
 }
 
 @media screen and (max-width: 527px){
@@ -42,7 +58,7 @@
 		font-size: 3vw;
 	}
 
-	img {
+	.user-info img{
 		display: none;
 	}
 }

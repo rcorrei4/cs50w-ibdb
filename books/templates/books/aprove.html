@@ -26,8 +26,8 @@
 					<a href="{% url 'book' illustration.book.id %}" target="_blank">{{ illustration.book.title }}</a>
 					<img src="{{ illustration.image.url }}" height="150px">
 					<form>
-						<button type="button" class="aprove-btn" onclick="aproveIllustration({{ illustration.id }})" title="Aprove"><i class="bi bi-check-circle-fill"></button>
-						<button type="button" class="reprove-btn" onclick="reproveIllustration({{ illustration.id }})" title="Reprove"><i class="bi bi-x-circle-fill"></button>
+						<button type="button" class="aprove-btn" onclick="aproveIllustration({{ illustration.id }})" title="Aprove"><i class="bi-check-circle-fill"></i></button>
+						<button type="button" class="reprove-btn" onclick="reproveIllustration({{ illustration.id }})" title="Reprove"><i class="bi bi-x-circle-fill"></i></button>
 					</form>
 				</div>
 			{% endfor %}
@@ -40,8 +40,8 @@
 					<a href="{% url 'book' illustration.illustration.book.id %}" target="_blank">{{ illustration.book.title }}</a>
 					<img src="{{ illustration.illustration.image.url }}" height="150px">
 					<form>
-						<button type="button" class="aprove-btn" onclick="aproveDeleteIllustration({{ illustration.id }})" title="Aprove"><i class="bi bi-check-circle-fill"></button>
-						<button type="button" class="reprove-btn" onclick="reproveIllustrationDelete({{ illustration.id }})" title="Reprove"><i class="bi bi-x-circle-fill"></button>
+						<button type="button" class="aprove-btn" onclick="aproveDeleteIllustration({{ illustration.id }})" title="Aprove"><i class="bi bi-check-circle-fill"></i></button>
+						<button type="button" class="reprove-btn" onclick="reproveIllustrationDelete({{ illustration.id }})" title="Reprove"><i class="bi bi-x-circle-fill"></i></button>
 					</form>
 				</div>
 			{% endfor %}
