@@ -1,8 +1,19 @@
 .search-result {
 	display: flex;
 	flex-wrap: wrap;
+	margin: 20px 30px 20px 30px;
 }
 
 .book-card {
-	width: 200px;
+	width: 128px;
+	margin-right: 20px;
+}
+
+.book-card {
+	text-decoration: none;
+	color: black;
+}
+
+.pagination {
+	margin: 20px 40px 20px 40px;
 }

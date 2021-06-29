@@ -211,7 +211,7 @@ def get_book(request, book_id):
 def search(request):
 	entry_search = request.GET.get('q')
 	books = Book.objects.filter(Q(title__icontains=entry_search) | Q(author__icontains=entry_search) | Q(isbn__icontains=entry_search) | Q(genres__icontains=entry_search) | Q(original_title__icontains=entry_search) | Q(characters__icontains=entry_search) | Q(keywords__icontains=entry_search))
-	paginator = Paginator(books, 6)
+	paginator = Paginator(books, 18)
 	page_number = request.GET.get("page")
 
 	page_obj = paginator.get_page(page_number)
