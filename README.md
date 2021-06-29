@@ -10,7 +10,7 @@ I believe that my project satisfies the distinctiveness and complexity requireme
 
 # Project files
 
-On the views.py, the main file, it has 22 functions, without counting authentication functions, that make up the project:
+On the books/views.py, the main file, it has 22 functions, without counting authentication functions, that make up the project:
 
 - **index**: show for the user the last added books, latest added books, best rating books and latest reviews.
 - **book**: show a page for the user containing all the book info requested. Logged users can rate this book, edit, review and add to bookshelf. The admin can block book editing for preventing page vandalism.
@@ -31,9 +31,9 @@ On the views.py, the main file, it has 22 functions, without counting authentica
 - **book_status**: add or remove a book from bookshelf.
 - **book_score**: its simply get a score from a book.
 
-On forms.py, it has all forms for creating and editing a book or review and the protection form.
-On models.py, all models needed for the website.
-On fonts folder inside static folder it contains a font file used for the application.
+On books/forms.py, it has all forms for creating and editing a book or review and the protection form.
+On books/models.py, all models needed for the website.
+On fonts folder inside books/static it contains a font file used for the application.
 
 The templates are inside books/templates/books/.
 
