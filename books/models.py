@@ -34,7 +34,7 @@ class Book(AbstractBook):
 		score["total"] = Rating.objects.filter(book=self).count()
 
 		for i in range(1, 6):
-			score["score_"+str(i)] = Rating.objects.filter(score=i).count()
+			score["score_"+str(i)] = Rating.objects.filter(book=self, score=i).count()
 
 		self.score = score
 		self.score_avg = score_avg['score__avg']
