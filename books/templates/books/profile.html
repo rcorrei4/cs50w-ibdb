@@ -23,7 +23,7 @@
 			<ul>
 				{% for book in book_post %}
 					<li>
-						<a href="{% url 'book' book.id %}">{{ book.title }}</a>
+						<a href="{% url 'show_request' book.id %}">{{ book.title }}</a>
 					</li>
 				{% endfor %}
 			<ul>
@@ -43,7 +43,7 @@
 			{% for illustration in illustration_delete %}
 				<div class="contributions-post">
 					<a href="{% url 'book' illustration.illustration.book.id %}">{{ illustration.book.title }}</a>
-					<img src="{{ illustration.illustration.book.url }}" height="150px">
+					<img src="{{ illustration.illustration.image.url }}" height="150px">
 				</div>
 			{% endfor %}
 		</div>

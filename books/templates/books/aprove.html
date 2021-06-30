@@ -5,13 +5,13 @@
 
 {% block body %}
 	<div class="contributions-post">
+		{% csrf_token %}
 		<h1>Books contributions to be aproved</h1>
 		<div class="contributions">
 			{% for book in book_post %}
 				<div class="info-contributions">
 					<a href="{% url 'show_request' book.id %}" target="_blank">{{ book.title }}</a>
 					<form>
-						{% csrf_token %}
 						<button type="button" class="aprove-btn" onclick="aprove({{ book.id }})" title="Aprove"><i class="bi-check-circle-fill"></i></button>
 						<button type="button" class="reprove-btn" onclick="reprove({{book.id}})" title="Reprove"><i class="bi bi-x-circle-fill"></i></button>
 					</form>
@@ -37,7 +37,7 @@
 		<div class="contributions">
 			{% for illustration in illustration_delete %}
 				<div class="image-contributions delete-contributions">
-					<a href="{% url 'book' illustration.illustration.book.id %}" target="_blank">{{ illustration.book.title }}</a>
+					<a href="{% url 'book' illustration.illustration.book.id %}" target="_blank">{{ illustration.illustration.book.title }}</a>
 					<img src="{{ illustration.illustration.image.url }}" height="150px">
 					<form>
 						<button type="button" class="aprove-btn" onclick="aproveDeleteIllustration({{ illustration.id }})" title="Aprove"><i class="bi bi-check-circle-fill"></i></button>

@@ -9,12 +9,11 @@
 }
 
 .book-img {
-	width: 1100px;
 	margin-right: 50px;
 }
 
 .book-presentation img {
-	max-width: 100%;
+	max-width: 300px;
 	height: auto;
 }
 
@@ -339,7 +338,7 @@ h3 a:hover {
 	}
 }
 
-@media screen and (max-width: 629px) {
+@media screen and (max-width: 689px) {
 	.book-presentation {
 		display: block;
 		margin: 10px 0px 10px 40px;

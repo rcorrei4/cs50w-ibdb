@@ -162,6 +162,7 @@ def edit_book(request, book_id):
 			new_book = BookRequest()
 			form = EditBookRequestForm(request.POST, instance=book)
 			if form.is_valid():
+				new_book.original_book_id = book_id
 				new_book.title = form.cleaned_data["title"]
 				new_book.author = form.cleaned_data["author"]
 				new_book.isbn = form.cleaned_data["isbn"]
@@ -177,6 +178,11 @@ def edit_book(request, book_id):
 				new_book.save()
 
 				return HttpResponseRedirect(reverse("book", args=[book.id]))
+			else:
+				return render(request, "books/edit_book.html", {
+					"form": form,
+					"book_id": book.id
+					})
 
 		else:
 			form = EditBookForm(request.POST, instance=book)
@@ -189,7 +195,8 @@ def edit_book(request, book_id):
 				return HttpResponseRedirect(reverse("book", args=[book.id]))
 			else:
 				return render(request, "books/edit_book.html", {
-					"form": form
+					"form": form,
+					"book_id": book.id
 					})
 	else:
 		if book.protection:
@@ -389,7 +396,7 @@ def aprove(request):
 		book_post_id = data.get("id")
 		
 		book_request_model = get_object_or_404(BookRequest, id=book_post_id)
-		book = Book.objects.get(title=book_request_model.title)
+		book = Book.objects.get(id=book_request_model.original_book_id)
 		book.title = book_request_model.title
 		book.author = book_request_model.author
 		book.isbn = book_request_model.isbn
@@ -492,7 +499,7 @@ def profile(request, user_id):
 		"ratings": Rating.objects.filter(user=request.user).count(),
 		"read": user.read.count(),
 		"reading": user.reading.count(),
-		"want": user.reading.count(),
+		"want": user.want_to_read.count(),
 		"book_post": book_post_request,
 		"illustration_post": illustration_post_request,
 		"illustration_delete": illustration_delete_request

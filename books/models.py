@@ -48,6 +48,7 @@ class User(AbstractUser):
 
 class BookRequest(AbstractBook):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
+	original_book_id = models.IntegerField(default=0)
 	date = models.DateField(auto_now=True)
 	change = models.CharField(max_length=24)
 

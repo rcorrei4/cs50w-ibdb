@@ -31,7 +31,7 @@ class BookForm(forms.ModelForm):
 class EditBookForm(forms.ModelForm):
 	class Meta:
 		model = Book
-		exclude = ['book_cover', "protection", "score"]
+		exclude = ['book_cover', "protection", "score", "score_avg"]
 
 class EditBookRequestForm(forms.ModelForm):
 	class Meta:
