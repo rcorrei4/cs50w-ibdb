@@ -1,43 +1,56 @@
-
 # IBDb
-This project was inspired by the collaborative editing form of wikipedia, where all users can edit a wiki and thus form quality content. The name was totally inspired by the IMDb (Internet Movie Database).
-
-The idea is simple, all users can create or edit a book but it has a form of protection the administrator can use against page vandalism.
+IBDB is a collaborative library editing, you can create a page for a book and anyone can help improving the page, it was inspired by the collaborative editing form of wikipedia, where all users can edit a wiki and thus form quality content. The name was totally inspired by the IMDb (Internet Movie Database).
 
 # Distinctiveness and Complexity
 
-I believe that my project satisfies the distinctiveness and complexity requirements because it has more complex functions than Pizza Project and it's distinct from the other projects although it has some similarities on this projects, like posting, searching or editing. It has on total 22 view functions without counting authentication functions.
+I believe that my project satisfies the distinctiveness and complexity requirements because it has several complex functions and models that were a challenge for me and it has more functions than Pizza Project, it's distinct from the other projects although it has some similarities on this projects, like posting, searching or editing.
+
+Another point I want to mention is the frontend code, it was much more difficult, I did my best to make the site modern and responsive. So I think it all fits into a good final project.
 
 # Project files
 
-On the books/views.py, the main file, it has 22 functions, without counting authentication functions, that make up the project:
+- `capstone`
 
-- **index**: show for the user the last added books, latest added books, best rating books and latest reviews.
-- **book**: show a page for the user containing all the book info requested. Logged users can rate this book, edit, review and add to bookshelf. The admin can block book editing for preventing page vandalism.
-- **show_reviews**: as the name implies, it simply shows to user all the reviews of the requested book.
-- **contribute**: send a form for the user to add a new book to the website.
-- **edit_book**: send a form for the user to edit the book requested. When a user try to edit a book that is protected, that change is saved in another object and sent for admin to approve or disapprove.
-- **get_book**: used for the frontend code so the page doesn't need to be reloaded when a book info is necessary.
-- **search**: allow the user searching for a book stored in the database.
-- **rate_book**: is simply for the user to rate a book.
-- **illustration**: when a GET method is requested it shows a page containing all illustrations of a book for the user, the user can add or delete some illustrations and send a POST method to add or delete these illustrations.
-- **review_book**: allow the user to write a review and rate a book.
-- **edit_book**: for editing a review.
-- **protect**: it blocks or unblock any modification from the user on a book.
-- **aprove**: send for the admin all editions made by users when a book was protected. The admin can aprove or reprove these changes.
-- **reprove**: delete a change on a book made by a user.
-- **show_request**: shows the user a changes that have been submitted for analysis.
-- **profile**: send a page containing basic user info, his bookshelf and all editions made by him sent for analysis.
-- **book_status**: add or remove a book from bookshelf.
-- **book_score**: its simply get a score from a book.
+	- `books` - Main application directory.
 
-On books/forms.py, it has all forms for creating and editing a book or review and the protection form.
-On books/models.py, all models needed for the website.
-On fonts folder inside books/static it contains a font file used for the application.
+		- `__migrations` - All migrations of the project.
 
-The templates are inside books/templates/books/.
+		- `static` - CSS, Images, Fonts and JS files.
+			- `css` - All CSS files used in the project.
+			- `images` - All images used in the project.
+			- `js` - Contains all JS files used in the project, the main purpouse is executing functions without reloading the page.
+				- `aprove.js` - Aprove any request_post in the website.
+				- `book_status.js` - Add a book to read, reading or want to read in user profile.
+				- `ibdb_rating.js` - Get all scores for the book requested.
+				- `illustration.js` - Create/Edit/Delete book illustrations in /book/book_id/illustrations
+				- `index.js` - Configuration file for SwipeJS slides.
+				- `menu.js` - Used to create a responsive menu bar.
+				- `rate.js` - Insert a user score on a book.
+		- `templates/books` - HTML files used in the website.
+			- `aprove.html` - A page to show all request editions on the website.
+			- `book.html` - Show a page for a book on the website.
+			- `book_reviews` - Show all reviews of a book.
+			- `contribute.html` - A page that provides several inputs to create a book page.
+			- `edit_book.html` and `edit_review.html` - As the name says, it provides for the user editing of books and reviews
+			- `illustration.html` - Show all illustrations of a book.
+			- `index.html` - Home page of the website
+			- `layout.html` - Used as a layout for all HTML files, contains the navbar and some frontend setup files.
+			- `login.html` - A login page for the user.
+			- `profile` - Show some user info.
+			- `register.html` - A registration page for the user.
+			- `review.html` - Provide inputs for reviewing a book.
+			- `search.html` - Shows all search results that compare to the user's search.
+			- `show_request.html` - Shows an edit made by a user that is in analysis.
+		- `admin.py` - Used to register all project models for django-admin.
+		- `forms.py`  - Contains some forms used in templates to get data, like a new book page.
+		- `models.py` - Contains all models used in the project.
+		- `urls.py` - Contains all url paths for the project like new book or edit book.
+		- `views.py` - Contains all view functions of the project.
+	- `ibdb` - Project configuration folder
+	- `manage.py` - Main file used, for example, starting the project.
+	- `requirements.txt` - All dependencies used in the project.
 
-## Frameworks used
+## Frontend Frameworks used
 
 - Bootstrap
 - SwiperJS
