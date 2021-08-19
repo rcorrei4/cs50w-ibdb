@@ -1,5 +1,5 @@
 # IBDb
-IBDB is a collaborative library editing, you can create a page for a book and anyone can help improving the page, it was inspired by the collaborative editing form of wikipedia, where all users can edit a wiki and thus form quality content. The name was totally inspired by the IMDb (Internet Movie Database).
+IBDb is a collaborative library editing, you can create a page for a book and anyone can help improving the page, it was inspired by the collaborative editing form of wikipedia, where all users can edit a wiki and thus form quality content. The name was totally inspired by the IMDb (Internet Movie Database).
 
 # Distinctiveness and Complexity
 
