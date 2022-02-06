@@ -1,3 +1,5 @@
+**This is my capstone project that I made for CS50's Web Programming with Python and Javascript 2020 course**
+
 # IBDb
 IBDb is a collaborative library editing, you can create a page for a book and anyone can help improving the page, it was inspired by the collaborative editing form of wikipedia, where all users can edit a wiki and thus form quality content. The name was totally inspired by the IMDb (Internet Movie Database).
 
