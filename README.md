@@ -3,7 +3,7 @@
 # IBDb
 IBDb is a collaborative library editing, you can create a page for a book and anyone can help improving the page, it was inspired by the collaborative editing form of wikipedia, where all users can edit a wiki and thus form quality content. The name was totally inspired by the IMDb (Internet Movie Database).
 
-![IBDb](https://raw.githubusercontent.com/rcorrei4/cs50w-ibdb/main/presentation.jpg)
+![IBDb](https://raw.githubusercontent.com/rcorrei4/cs50w-ibdb/main/presentation.gif)
 
 ## Technologies
 - Python3
