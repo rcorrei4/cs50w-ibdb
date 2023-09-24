@@ -28,3 +28,10 @@ After installing requirements you can type this command to start the application
 ~~~python3
 python3 manage.py runserver
 ~~~
+## Extra
+There were other projects during the course, but as far as I remember, CS50 did not recommend sharing these projects because they were the same for other people, which would facilitate plagiarism. However you can view each project requirements:
+- https://cs50.harvard.edu/web/2020/projects/0/search/
+- https://cs50.harvard.edu/web/2020/projects/1/wiki/
+- https://cs50.harvard.edu/web/2020/projects/2/commerce/
+- https://cs50.harvard.edu/web/2020/projects/3/mail/
+- https://cs50.harvard.edu/web/2020/projects/4/network/
