@@ -6,7 +6,7 @@ IBDb is a collaborative library editing, you can create a page for a book and an
 ![IBDb](https://raw.githubusercontent.com/rcorrei4/cs50w-ibdb/main/presentation.gif)
 
 ## Technologies
-- Python3
+- Python3.8
 - Django
 - SQLite
 - Bootstrap
